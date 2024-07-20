@@ -2,10 +2,7 @@ package zedly.zenchantments.enchantments;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.entity.AbstractArrow;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -30,8 +27,8 @@ public final class Singularity extends Zenchantment {
 
     @Override
     public boolean onEntityShootBow(final @NotNull EntityShootBowEvent event, final int level, final EquipmentSlot slot) {
-        final SingularityArrow arrow = new SingularityArrow((AbstractArrow) event.getProjectile(), level);
-        ZenchantedArrow.addZenchantedArrowToArrowEntity((AbstractArrow) event.getProjectile(), arrow, (Player) event.getEntity());
+        final SingularityArrow arrow = new SingularityArrow((Projectile) event.getProjectile(), level);
+        ZenchantedArrow.addZenchantedArrowToArrowEntity((Projectile) event.getProjectile(), arrow, (Player) event.getEntity());
         return true;
     }
 

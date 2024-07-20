@@ -1,9 +1,6 @@
 package zedly.zenchantments.enchantments;
 
-import org.bukkit.entity.AbstractArrow;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
@@ -56,8 +53,8 @@ public final class Toxic extends Zenchantment {
 
     @Override
     public boolean onEntityShootBow(final @NotNull EntityShootBowEvent event, final int level, final EquipmentSlot slot) {
-        final ToxicArrow arrow = new ToxicArrow((AbstractArrow) event.getProjectile(), level, this.getPower());
-        ZenchantedArrow.addZenchantedArrowToArrowEntity((AbstractArrow) event.getProjectile(), arrow, (Player) event.getEntity());
+        final ToxicArrow arrow = new ToxicArrow((Projectile) event.getProjectile(), level, this.getPower());
+        ZenchantedArrow.addZenchantedArrowToArrowEntity((Projectile) event.getProjectile(), arrow, (Player) event.getEntity());
         return true;
     }
 

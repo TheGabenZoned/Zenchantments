@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -24,8 +25,8 @@ public final class QuickShot extends Zenchantment {
         PlayerInventory inv = player.getInventory();
         ItemStack bow = inv.getItem(slot);
 
-        final QuickArrow arrow = new QuickArrow((AbstractArrow) event.getProjectile());
-        ZenchantedArrow.addZenchantedArrowToArrowEntity((AbstractArrow) event.getProjectile(), arrow, (Player) event.getEntity());
+        final QuickArrow arrow = new QuickArrow((Projectile) event.getProjectile());
+        ZenchantedArrow.addZenchantedArrowToArrowEntity((Projectile) event.getProjectile(), arrow, (Player) event.getEntity());
 
         if (bow.getType() == Material.CROSSBOW) {
             CrossbowMeta meta = (CrossbowMeta) bow.getItemMeta();

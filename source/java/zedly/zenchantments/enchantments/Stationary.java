@@ -1,9 +1,6 @@
 package zedly.zenchantments.enchantments;
 
-import org.bukkit.entity.AbstractArrow;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
@@ -37,8 +34,8 @@ public final class Stationary extends Zenchantment {
 
     @Override
     public boolean onEntityShootBow(final @NotNull EntityShootBowEvent event, final int level, final EquipmentSlot slot) {
-        final StationaryArrow arrow = new StationaryArrow((AbstractArrow) event.getProjectile());
-        ZenchantedArrow.addZenchantedArrowToArrowEntity((AbstractArrow) event.getProjectile(), arrow, (Player) event.getEntity());
+        final StationaryArrow arrow = new StationaryArrow((Projectile) event.getProjectile());
+        ZenchantedArrow.addZenchantedArrowToArrowEntity((Projectile) event.getProjectile(), arrow, (Player) event.getEntity());
         return true;
     }
 

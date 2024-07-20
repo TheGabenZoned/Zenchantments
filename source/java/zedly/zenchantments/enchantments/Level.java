@@ -3,6 +3,7 @@ package zedly.zenchantments.enchantments;
 import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
@@ -41,8 +42,8 @@ public final class Level extends Zenchantment {
     @Override
     public boolean onEntityShootBow(final @NotNull EntityShootBowEvent event, final int level, final EquipmentSlot slot) {
         if (ThreadLocalRandom.current().nextBoolean()) {
-            final LevelArrow arrow = new LevelArrow((AbstractArrow) event.getProjectile(), level, this.getPower());
-            ZenchantedArrow.addZenchantedArrowToArrowEntity((AbstractArrow) event.getProjectile(), arrow, (Player) event.getEntity());
+            final LevelArrow arrow = new LevelArrow((Projectile) event.getProjectile(), level, this.getPower());
+            ZenchantedArrow.addZenchantedArrowToArrowEntity((Projectile) event.getProjectile(), arrow, (Player) event.getEntity());
             return true;
         }
 

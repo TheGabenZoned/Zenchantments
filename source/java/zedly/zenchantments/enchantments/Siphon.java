@@ -1,10 +1,7 @@
 package zedly.zenchantments.enchantments;
 
 import org.bukkit.attribute.Attribute;
-import org.bukkit.entity.AbstractArrow;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
@@ -43,8 +40,8 @@ public final class Siphon extends Zenchantment {
 
     @Override
     public boolean onEntityShootBow(final @NotNull EntityShootBowEvent event, final int level, final EquipmentSlot slot) {
-        final SiphonArrow arrow = new SiphonArrow((AbstractArrow) event.getProjectile(), level, this.getPower());
-        ZenchantedArrow.addZenchantedArrowToArrowEntity((AbstractArrow) event.getProjectile(), arrow, (Player) event.getEntity());
+        final SiphonArrow arrow = new SiphonArrow((Projectile) event.getProjectile(), level, this.getPower());
+        ZenchantedArrow.addZenchantedArrowToArrowEntity((Projectile) event.getProjectile(), arrow, (Player) event.getEntity());
         return true;
     }
 
