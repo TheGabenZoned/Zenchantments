@@ -29,7 +29,7 @@ public class ObfuscationUtil {
     }
 
     public static void resetXPPickupTimer(EntityHuman human) {
-        human.bX = 0;
+        human.cg = 0;
     }
 
     public static boolean breakBlockAsPlayer(EntityPlayer ep, BlockPosition bp) {
@@ -37,15 +37,15 @@ public class ObfuscationUtil {
     }
 
     public static int getAnimalsLoveModeTimer(EntityAnimal ea) {
-        return ea.h();
+        return ea.gs();
     }
 
     public static boolean isInAnimalsWorldBreedingDisabled(EntityAnimal ea) {
-        return ea.dM().B;
+        return ea.dP().B;
     }
 
     public static boolean isAnimalNotInLove(EntityAnimal ea) {
-        return ea.gf();
+        return ea.gr();
     }
 
     public static void animalEnterLoveMode(EntityAnimal animal, EntityHuman feeder) {
@@ -77,11 +77,11 @@ public class ObfuscationUtil {
     }
 
     public static EntityTypes getShulkerEntityType() {
-        return EntityTypes.aH;
+        return EntityTypes.aK;
     }
 
     public static EntityTypes getFallingBlockEntityType() {
-        return EntityTypes.M;
+        return EntityTypes.O;
     }
 
     public static int getNumericalBlockType(IBlockData blockData) {
@@ -91,12 +91,12 @@ public class ObfuscationUtil {
     @NotNull
     public static PacketPlayOutEntityMetadata generateShulkerGlowPacket(final int entityId) {
         final DataWatcherSerializer<Byte> byteSerializer = ObfuscationUtil.getDataWatcherByte(); // Type (Byte)
-        final List<DataWatcher.b<?>> list = new ArrayList<>();
+        final List<DataWatcher.c<?>> list = new ArrayList<>();
 
         // Add a record of Entity Metadata. Requires an id, a Serializer and a value.
         // As of 1.19, setting a LivingEntity to be glowing and invisible is done via a bitmask in a single record.
         // This record is at id 0, is of type Byte (uses the Byte Serializer) and has a value of 0x60
-        list.add(new DataWatcher.b<>(0, byteSerializer, (byte) 0x60));
+        list.add(new DataWatcher.c<>(0, byteSerializer, (byte) 0x60));
         PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata(entityId, list);
         return packet;
     }
@@ -121,12 +121,12 @@ public class ObfuscationUtil {
         }
 
         @Override
-        public int aj() {
+        public int al() {
             return entityId;
         }
 
         @Override
-        public UUID cw() {
+        public UUID cz() {
             return uuid;
         }
 
@@ -136,12 +136,12 @@ public class ObfuscationUtil {
 
         // Useless abstract methods we need to implement to appease the compiler
         @Override
-        public Iterable<net.minecraft.world.item.ItemStack> bL() {
+        public Iterable<net.minecraft.world.item.ItemStack> eZ() {
             return null;
         }
 
         @Override
-        public net.minecraft.world.item.ItemStack c(EnumItemSlot enumItemSlot) {
+        public net.minecraft.world.item.ItemStack a(EnumItemSlot enumItemSlot) {
             return null;
         }
 
@@ -150,8 +150,9 @@ public class ObfuscationUtil {
         }
 
         @Override
-        public EnumMainHand fm() {
+        public EnumMainHand fu() {
             return null;
         }
+
     }
 }
