@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import zedly.zenchantments.WorldInteractionUtil;
 import zedly.zenchantments.Utilities;
 
-import static org.bukkit.potion.PotionEffectType.SLOW;
+import static org.bukkit.potion.PotionEffectType.SLOWNESS;
 
 public final class BlizzardArrow extends ZenchantedArrow {
     public BlizzardArrow(
@@ -46,7 +46,7 @@ public final class BlizzardArrow extends ZenchantedArrow {
 
             Utilities.addPotionEffect(
                 (LivingEntity) entity,
-                SLOW,
+                SLOWNESS,
                 (int) Math.round(50 + this.getLevel() * this.getPower() * 50),
                 (int) Math.round(this.getLevel() * this.getPower() * 2)
             );

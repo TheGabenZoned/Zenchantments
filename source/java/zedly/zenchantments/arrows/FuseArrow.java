@@ -26,13 +26,13 @@ public final class FuseArrow extends ZenchantedArrow {
             creeper.explode();
             event.setCancelled(true);
             die(true);
-        } else if (event.getHitEntity().getType() == EntityType.MUSHROOM_COW) {
+        } else if (event.getHitEntity().getType() == EntityType.MOOSHROOM) {
             final MushroomCow mooshroom = (MushroomCow) event.getHitEntity();
 
             if (mooshroom.isAdult()) {
                 final Location location = event.getHitEntity().getLocation();
 
-                Utilities.displayParticle(location, Particle.EXPLOSION_LARGE, 1, 1f, 0, 0, 0);
+                Utilities.displayParticle(location, Particle.EXPLOSION, 1, 1f, 0, 0, 0);
                 event.getHitEntity().remove();
                 location.getWorld().spawnEntity(location, EntityType.COW);
                 location.getWorld().dropItemNaturally(location, new ItemStack(Material.RED_MUSHROOM, 5));

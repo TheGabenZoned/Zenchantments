@@ -18,7 +18,7 @@ import zedly.zenchantments.configuration.WorldConfigurationProvider;
 
 import java.util.Set;
 
-import static org.bukkit.enchantments.Enchantment.DURABILITY;
+import static org.bukkit.enchantments.Enchantment.UNBREAKING;
 import static org.bukkit.event.EventPriority.MONITOR;
 
 public class GrindstoneMergeListener implements Listener {
@@ -42,10 +42,10 @@ public class GrindstoneMergeListener implements Listener {
         } else {
             if (event.getCurrentItem() != null) {
                 final ItemMeta itemMeta = (ItemMeta) event.getCurrentItem().getItemMeta();
-                if (itemMeta != null && itemMeta.hasEnchants() && itemMeta.getEnchants().containsKey(DURABILITY)
-                    && itemMeta.getEnchants().get(DURABILITY) == 0
+                if (itemMeta != null && itemMeta.hasEnchants() && itemMeta.getEnchants().containsKey(UNBREAKING)
+                    && itemMeta.getEnchants().get(UNBREAKING) == 0
                 ) {
-                    itemMeta.removeEnchant(DURABILITY);
+                    itemMeta.removeEnchant(UNBREAKING);
                     event.getCurrentItem().setItemMeta(itemMeta);
                 }
             }
@@ -68,8 +68,8 @@ public class GrindstoneMergeListener implements Listener {
         }
         final ItemMeta itemMeta = (ItemMeta) item.getItemMeta();
 
-        if (itemMeta != null && (!itemMeta.hasEnchants() || !itemMeta.getEnchants().containsKey(DURABILITY))) {
-            itemMeta.addEnchant(DURABILITY, 0, true);
+        if (itemMeta != null && (!itemMeta.hasEnchants() || !itemMeta.getEnchants().containsKey(UNBREAKING))) {
+            itemMeta.addEnchant(UNBREAKING, 0, true);
             item.setItemMeta(itemMeta);
             inventory.setItem(slot, item);
         }

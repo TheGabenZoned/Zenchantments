@@ -34,7 +34,7 @@ public final class Burst extends Zenchantment {
         final ItemStack itemInHand = player.getInventory().getItem(slot);
         AbstractArrow originalArrow = (AbstractArrow) event.getProjectile();
 
-        boolean hasInfinity = player.getGameMode() == GameMode.CREATIVE || itemInHand.containsEnchantment(Enchantment.ARROW_INFINITE);
+        boolean hasInfinity = player.getGameMode() == GameMode.CREATIVE || itemInHand.containsEnchantment(Enchantment.INFINITY);
 
         // We subtract 1 because this happens before the NMS code removes an arrow
         int maxArrows = hasInfinity ? 64 : Utilities.countItems(player.getInventory(), (i) -> i != null && i.getType() == ARROW) - 1;
@@ -92,7 +92,7 @@ public final class Burst extends Zenchantment {
 
         arrow.setShooter(player);
 
-        if (itemInHand.containsEnchantment(Enchantment.ARROW_FIRE)) {
+        if (itemInHand.containsEnchantment(Enchantment.FLAME)) {
             arrow.setFireTicks(Integer.MAX_VALUE);
         }
 

@@ -56,7 +56,7 @@ public final class Utilities {
     }
 
     public static int getUnbreakingLevel(ItemStack is) {
-        return is.getEnchantmentLevel(Enchantment.DURABILITY);
+        return is.getEnchantmentLevel(Enchantment.UNBREAKING);
     }
 
     public static boolean decideRandomlyIfDamageToolRespectUnbreaking(int unbreakingLevel) {

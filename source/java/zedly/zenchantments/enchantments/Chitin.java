@@ -25,7 +25,7 @@ public class Chitin extends Zenchantment {
             if (is == null) {
                 continue;
             }
-            protectionLevelSum += is.getEnchantmentLevel(Enchantment.PROTECTION_ENVIRONMENTAL);
+            protectionLevelSum += is.getEnchantmentLevel(Enchantment.PROTECTION);
         }
 
         // The Protection enchantment adds up all armor levels, then each level reduces the damage by 4 percentage points.

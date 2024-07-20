@@ -51,7 +51,7 @@ public final class RainbowSlam extends Zenchantment {
                     ThreadLocalRandom random = ThreadLocalRandom.current();
 
                     entity.getWorld().spawnParticle(
-                        Particle.REDSTONE,
+                        Particle.DUST,
                         cloned,
                         1,
                         new Particle.DustOptions(Color.fromRGB(random.nextInt(256), random.nextInt(256), random.nextInt(256)), 1.0f)
@@ -86,7 +86,7 @@ public final class RainbowSlam extends Zenchantment {
                 int numParticleGroups = (int) Math.pow(10, getPower());
                 for (int c = 0; c < numParticleGroups; c++) {
                     entity.getWorld().spawnParticle(
-                        Particle.BLOCK_DUST,
+                        Particle.BLOCK,
                         Utilities.getCenter(location),
                         10,
                         event.getPlayer().getLocation().getBlock().getBlockData()

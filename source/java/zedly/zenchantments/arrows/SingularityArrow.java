@@ -47,7 +47,7 @@ public final class SingularityArrow extends ZenchantedArrow {
             Bukkit.getScheduler().scheduleSyncDelayedTask(
                 ZenchantmentsPlugin.getInstance(),
                 () -> {
-                    Utilities.displayParticle(location, Particle.SMOKE_LARGE, 50, 0.001f, 0.75f, 0.75f, 0.75f);
+                    Utilities.displayParticle(location, Particle.SMOKE, 50, 0.001f, 0.75f, 0.75f, 0.75f);
                     location.getWorld().playSound(location, Sound.ENTITY_ENDER_DRAGON_GROWL, 10f, 0.1f);
                 },
                 i
