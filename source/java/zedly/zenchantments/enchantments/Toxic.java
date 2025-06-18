@@ -68,6 +68,16 @@ public final class Toxic extends Zenchantment {
         return true;
     }
 
+    @Override
+    public boolean onProjectileLaunch(final @NotNull ProjectileLaunchEvent event, final int level, final EquipmentSlot slot) {
+        if(event.getEntity().getType() != EntityType.TRIDENT) {
+            return false;
+        }
+        final ToxicArrow arrow = new ToxicArrow(event.getEntity(), level, getPower());
+        ZenchantedArrow.addZenchantedArrowToArrowEntity(event.getEntity(), arrow, (Player) event.getEntity().getShooter());
+        return true;
+    }
+
     @EffectTask(Frequency.HIGH)
     public static void hunger() {
         final Iterator<Player> iterator = HUNGER_PLAYERS.keySet().iterator();

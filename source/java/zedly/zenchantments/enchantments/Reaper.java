@@ -48,4 +48,14 @@ public final class Reaper extends Zenchantment {
         ZenchantedArrow.addZenchantedArrowToArrowEntity(event.getEntity(), arrow, (Player) event.getEntity().getShooter());
         return true;
     }
+
+    @Override
+    public boolean onProjectileLaunch(final @NotNull ProjectileLaunchEvent event, final int level, final EquipmentSlot slot) {
+        if(event.getEntity().getType() != EntityType.TRIDENT) {
+            return false;
+        }
+        final ReaperArrow arrow = new ReaperArrow(event.getEntity(), level, getPower());
+        ZenchantedArrow.addZenchantedArrowToArrowEntity(event.getEntity(), arrow, (Player) event.getEntity().getShooter());
+        return true;
+    }
 }

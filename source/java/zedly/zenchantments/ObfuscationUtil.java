@@ -25,7 +25,7 @@ import java.util.UUID;
 public class ObfuscationUtil {
 
     public static void experienceOrbPickup(EntityExperienceOrb orb, EntityHuman human) {
-        orb.b_(human);
+        orb.c_(human);
     }
 
     public static void resetXPPickupTimer(EntityHuman human) {
@@ -41,11 +41,13 @@ public class ObfuscationUtil {
     }
 
     public static boolean isInAnimalsWorldBreedingDisabled(EntityAnimal ea) {
+
         return ea.dP().B;
     }
 
     public static boolean isAnimalNotInLove(EntityAnimal ea) {
         return ea.gr();
+
     }
 
     public static void animalEnterLoveMode(EntityAnimal animal, EntityHuman feeder) {

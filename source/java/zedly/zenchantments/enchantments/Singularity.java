@@ -42,6 +42,16 @@ public final class Singularity extends Zenchantment {
         return true;
     }
 
+    @Override
+    public boolean onProjectileLaunch(final @NotNull ProjectileLaunchEvent event, final int level, final EquipmentSlot slot) {
+        if(event.getEntity().getType() != EntityType.TRIDENT) {
+            return false;
+        }
+        final SingularityArrow arrow = new SingularityArrow(event.getEntity(), level);
+        ZenchantedArrow.addZenchantedArrowToArrowEntity(event.getEntity(), arrow, (Player) event.getEntity().getShooter());
+        return true;
+    }
+
     @EffectTask(Frequency.HIGH)
     public static void singularityPhysics() {
         for (final Location location : SINGULARITIES.keySet()) {

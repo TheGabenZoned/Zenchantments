@@ -3,6 +3,7 @@ plugins {
 }
 
 group 'zedly'
+
 version '20.6.0-SNAPSHOT'
 
 repositories {

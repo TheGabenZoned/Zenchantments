@@ -9,6 +9,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 import zedly.zenchantments.*;
 import zedly.zenchantments.arrows.BlizzardArrow;
+import zedly.zenchantments.arrows.VortexArrow;
 import zedly.zenchantments.arrows.ZenchantedArrow;
 
 @AZenchantment(runInSlots = Slots.HANDS , conflicting = {Firestorm.class})
@@ -26,6 +27,16 @@ public final class Blizzard extends Zenchantment {
             return false;
         }
 
+        final BlizzardArrow arrow = new BlizzardArrow(event.getEntity(), level, getPower());
+        ZenchantedArrow.addZenchantedArrowToArrowEntity(event.getEntity(), arrow, (Player) event.getEntity().getShooter());
+        return true;
+    }
+
+    @Override
+    public boolean onProjectileLaunch(final @NotNull ProjectileLaunchEvent event, final int level, final EquipmentSlot slot) {
+        if(event.getEntity().getType() != EntityType.TRIDENT) {
+            return false;
+        }
         final BlizzardArrow arrow = new BlizzardArrow(event.getEntity(), level, getPower());
         ZenchantedArrow.addZenchantedArrowToArrowEntity(event.getEntity(), arrow, (Player) event.getEntity().getShooter());
         return true;
