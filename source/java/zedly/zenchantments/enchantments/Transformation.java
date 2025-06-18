@@ -183,7 +183,7 @@ public final class Transformation extends Zenchantment {
                 final Creeper newCreeper = (Creeper) newEntity;
                 newCreeper.setPowered(!oldCreeper.isPowered());
                 break;
-            case MUSHROOM_COW:
+            case MOOSHROOM:
                 final MushroomCow mooshroom = (MushroomCow) newEntity;
                 mooshroom.setVariant(MushroomCow.Variant.values()[random.nextInt(MushroomCow.Variant.values().length)]);
                 break;
@@ -231,7 +231,7 @@ public final class Transformation extends Zenchantment {
             SKELETON_HORSE,
             EntityType.RABBIT,
             SHULKER,
-            SNOWMAN,
+            SNOW_GOLEM,
             DROWNED,
             VINDICATOR,
             EntityType.SALMON,
@@ -242,7 +242,7 @@ public final class Transformation extends Zenchantment {
             DOLPHIN,
             WOLF,
             SHEEP,
-            MUSHROOM_COW,
+            MOOSHROOM,
             ZOMBIFIED_PIGLIN,
             CAVE_SPIDER,
             MAGMA_CUBE,
@@ -279,7 +279,7 @@ public final class Transformation extends Zenchantment {
             DOLPHIN,
             WOLF,
             SHEEP,
-            MUSHROOM_COW,
+            MOOSHROOM,
             ZOMBIFIED_PIGLIN,
             CAVE_SPIDER,
             MAGMA_CUBE,
@@ -308,7 +308,7 @@ public final class Transformation extends Zenchantment {
             SKELETON_HORSE,
             EntityType.RABBIT,
             SHULKER,
-            SNOWMAN,
+            SNOW_GOLEM,
             ZOMBIE_VILLAGER,
             VILLAGER,
             EntityType.TROPICAL_FISH,

@@ -60,7 +60,7 @@ public final class FireworkArrow extends ZenchantedArrow {
             .with(type[(ThreadLocalRandom.current().nextInt(Math.min(this.getLevel(), 4)))]);
 
         final Location location = this.getArrow().getLocation();
-        final Firework firework = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
+        final Firework firework = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK_ROCKET);
         firework.setSilent(true);
         final FireworkMeta fireworkMeta = firework.getFireworkMeta();
         fireworkMeta.setPower(0);

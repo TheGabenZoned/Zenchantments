@@ -95,7 +95,7 @@ public class GeneralListener implements Listener {
             location.setX(play.getX() + (i * ((target.getX() - play.getX()) / (distance * 10))));
             location.setY(play.getY() + (i * ((target.getY() - play.getY()) / (distance * 10))));
             location.setZ(play.getZ() + (i * ((target.getZ() - play.getZ()) / (distance * 10))));
-            requireNonNull(location.getWorld()).spawnParticle(Particle.REDSTONE, location, 1, new Particle.DustOptions(Color.RED, 0.75f));
+            requireNonNull(location.getWorld()).spawnParticle(Particle.DUST, location, 1, new Particle.DustOptions(Color.RED, 0.75f));
 
             for (final Entity entity : requireNonNull(play.getWorld()).getEntities()) {
                 if (entity.getLocation().distance(location) >= 0.75 || !(entity instanceof LivingEntity)) {
@@ -367,7 +367,7 @@ public class GeneralListener implements Listener {
 
         for (final Zenchantment zenchantment : zenchantments) {
             if (zenchantment.getClass() == Jump.class || zenchantment.getClass() == Meador.class) {
-                player.removePotionEffect(PotionEffectType.JUMP);
+                player.removePotionEffect(PotionEffectType.JUMP_BOOST);
             }
 
             if (zenchantment.getClass() == NightVision.class) {
@@ -375,7 +375,7 @@ public class GeneralListener implements Listener {
             }
 
             if (zenchantment.getClass() == Weight.class) {
-                player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+                player.removePotionEffect(PotionEffectType.STRENGTH);
             }
         }
     }

@@ -7,7 +7,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
 import zedly.zenchantments.*;
 
-import static org.bukkit.potion.PotionEffectType.INCREASE_DAMAGE;
+import static org.bukkit.potion.PotionEffectType.STRENGTH;
 import static zedly.zenchantments.Slots.ARMOR;
 
 @AZenchantment(runInSlots = ARMOR, conflicting = {Meador.class, Speed.class})
@@ -39,7 +39,7 @@ public final class Weight extends Zenchantment {
 
     @Override
     public boolean onScan(final @NotNull Player player, final int level, final EquipmentSlot slot) {
-        Utilities.addPotionEffect(player, INCREASE_DAMAGE, 610, (int) Math.round(this.getPower() * level));
+        Utilities.addPotionEffect(player, STRENGTH, 610, (int) Math.round(this.getPower() * level));
         player.setWalkSpeed((float) (0.164f - level * this.getPower() * 0.014f));
         player.setMetadata("ze.speed", new FixedMetadataValue(ZenchantmentsPlugin.getInstance(), System.currentTimeMillis()));
         return true;

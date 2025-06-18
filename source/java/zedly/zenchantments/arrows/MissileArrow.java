@@ -59,7 +59,7 @@ public final class MissileArrow extends ZenchantedArrow {
                     }
 
                     if (finalI >= ((int) (distance * 5) + 9) || location2.getBlock().getType() != AIR) {
-                        Utilities.displayParticle(location2, Particle.EXPLOSION_HUGE, 10, 0.1f, 0, 0, 0);
+                        Utilities.displayParticle(location2, Particle.EXPLOSION, 10, 0.1f, 0, 0, 0);
                         Utilities.displayParticle(location1, Particle.FLAME, 175, 1f, 0, 0, 0);
                         location2.setY(location2.getY() + 5);
                         location2.getWorld().createExplosion(

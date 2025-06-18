@@ -37,7 +37,7 @@ import static org.bukkit.Material.AIR;
 import static org.bukkit.entity.EntityType.*;
 import static org.bukkit.event.entity.EntityDamageEvent.DamageCause.PROJECTILE;
 import static org.bukkit.inventory.EquipmentSlot.*;
-import static org.bukkit.potion.PotionEffectType.FAST_DIGGING;
+import static org.bukkit.potion.PotionEffectType.HASTE;
 import static zedly.zenchantments.Tool.*;
 
 public final class ZenchantmentListener implements Listener {
@@ -425,13 +425,13 @@ public final class ZenchantmentListener implements Listener {
         final long currentTime = System.currentTimeMillis();
         if (player.hasMetadata("ze.speed") && (player.getMetadata("ze.speed").get(0).asLong() < currentTime - 1000)) {
             player.removeMetadata("ze.speed", plugin);
-            player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+            player.removePotionEffect(PotionEffectType.SPEED);
             player.setFlySpeed(0.1F);
             player.setWalkSpeed(0.2F);
         }
 
         if (player.hasMetadata("ze.haste") && (player.getMetadata("ze.haste").get(0).asLong() < currentTime - 1000)) {
-            player.removePotionEffect(FAST_DIGGING);
+            player.removePotionEffect(HASTE);
             player.removeMetadata("ze.haste", plugin);
         }
     }

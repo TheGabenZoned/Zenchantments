@@ -56,7 +56,7 @@ public final class Utilities {
     }
 
     public static int getUnbreakingLevel(ItemStack is) {
-        return is.getEnchantmentLevel(Enchantment.DURABILITY);
+        return is.getEnchantmentLevel(Enchantment.UNBREAKING);
     }
 
     public static boolean decideRandomlyIfDamageToolRespectUnbreaking(int unbreakingLevel) {
@@ -79,6 +79,11 @@ public final class Utilities {
 
         final PlayerInventory inventory = player.getInventory();
         final ItemStack heldItem = inventory.getItem(slot);
+
+        if(heldItem.getItemMeta() != null && heldItem.getItemMeta().isUnbreakable()) {
+            return;
+        }
+
         final int unbreakingLevel = getUnbreakingLevel(heldItem);
         int totalDamageApplied = 0;
 
@@ -95,7 +100,7 @@ public final class Utilities {
         requireNonNull(player);
 
         if (player.getGameMode() == GameMode.CREATIVE) {
-            damage = 0;
+            return;
         }
 
         final var inventory = player.getInventory();
@@ -376,7 +381,7 @@ public final class Utilities {
                 continue;
             }
 
-            if (effect.getAmplifier() >= intensity || effect.getDuration() > length) {
+            if ((effect.getAmplifier() > intensity) || (effect.getDuration() > length)) {
                 return;
             }
 

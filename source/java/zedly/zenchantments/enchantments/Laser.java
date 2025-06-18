@@ -62,7 +62,7 @@ public final class Laser extends Zenchantment {
             particleLocation.setY(playerLocation.getY() + (i * ((target.getY() - playerLocation.getY()) / (d * 5))));
             particleLocation.setZ(playerLocation.getZ() + (i * ((target.getZ() - playerLocation.getZ()) / (d * 5))));
 
-            player.getWorld().spawnParticle(Particle.REDSTONE, particleLocation, 1, new Particle.DustOptions(Color.RED, 0.5f));
+            player.getWorld().spawnParticle(Particle.DUST, particleLocation, 1, new Particle.DustOptions(Color.RED, 0.5f));
 
             for (final Entity entity : player.getWorld().getNearbyEntities(particleLocation, 0.3, 0.3, 0.3)) {
                 if (entity instanceof LivingEntity && entity != player) {

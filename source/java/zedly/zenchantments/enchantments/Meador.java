@@ -6,7 +6,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
 import zedly.zenchantments.*;
 
-import static org.bukkit.potion.PotionEffectType.JUMP;
+import static org.bukkit.potion.PotionEffectType.JUMP_BOOST;
 
 @AZenchantment(runInSlots = Slots.ARMOR, conflicting = {Weight.class, Speed.class, Jump.class})
 public final class Meador extends Zenchantment {
@@ -20,7 +20,7 @@ public final class Meador extends Zenchantment {
 
         player.setMetadata("ze.speed", new FixedMetadataValue(ZenchantmentsPlugin.getInstance(), System.currentTimeMillis()));
 
-        Utilities.addPotionEffect(player, JUMP, 610, (int) Math.round(this.getPower() * level + 2));
+        Utilities.addPotionEffect(player, JUMP_BOOST, 610, (int) Math.round(this.getPower() * level + 2));
 
         return true;
     }

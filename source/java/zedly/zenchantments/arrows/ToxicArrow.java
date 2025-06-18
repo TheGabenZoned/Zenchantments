@@ -12,7 +12,7 @@ import zedly.zenchantments.Utilities;
 import zedly.zenchantments.ZenchantmentsPlugin;
 import zedly.zenchantments.enchantments.Toxic;
 
-import static org.bukkit.potion.PotionEffectType.CONFUSION;
+import static org.bukkit.potion.PotionEffectType.NAUSEA;
 import static org.bukkit.potion.PotionEffectType.HUNGER;
 
 public final class ToxicArrow extends ZenchantedArrow {
@@ -29,7 +29,7 @@ public final class ToxicArrow extends ZenchantedArrow {
         if (WorldInteractionUtil.attackEntity((LivingEntity) event.getHitEntity(), (Player) this.getArrow().getShooter(), 0)) {
             final int value = (int) Math.round(this.getLevel() * this.getPower());
 
-            Utilities.addPotionEffect((LivingEntity) event.getHitEntity(), CONFUSION, 80 + 60 * value, 4);
+            Utilities.addPotionEffect((LivingEntity) event.getHitEntity(), NAUSEA, 80 + 60 * value, 4);
             Utilities.addPotionEffect((LivingEntity) event.getHitEntity(), HUNGER, 40 + 60 * value, 4);
 
             if (event.getHitEntity() instanceof Player) {

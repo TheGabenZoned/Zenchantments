@@ -304,7 +304,7 @@ public abstract class Zenchantment implements Keyed, zedly.zenchantments.api.Zen
         }
 
         for (Map.Entry<Enchantment, Integer> set : enchantments.entrySet()) {
-            if (!(set.getKey().equals(Enchantment.DURABILITY) && (durabilityLevel = set.getValue()) == 0)) {
+            if (!(set.getKey().equals(Enchantment.UNBREAKING) && (durabilityLevel = set.getValue()) == 0)) {
                 containsNormal = true;
             } else {
                 containsHidden = true;
@@ -314,12 +314,12 @@ public abstract class Zenchantment implements Keyed, zedly.zenchantments.api.Zen
         if (containsNormal || (!zenchantment && containsHidden)) {
             if (stack.getType() == ENCHANTED_BOOK) {
                 if (durabilityLevel == 0) {
-                    bookMeta.removeStoredEnchant(Enchantment.DURABILITY);
+                    bookMeta.removeStoredEnchant(Enchantment.UNBREAKING);
                 }
                 bookMeta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
             } else {
                 if (durabilityLevel == 0) {
-                    itemMeta.removeEnchant(Enchantment.DURABILITY);
+                    itemMeta.removeEnchant(Enchantment.UNBREAKING);
                 }
                 itemMeta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
             }
@@ -327,10 +327,10 @@ public abstract class Zenchantment implements Keyed, zedly.zenchantments.api.Zen
             if (stack.getType() == BOOK) {
                 stack.setType(ENCHANTED_BOOK);
                 bookMeta = (EnchantmentStorageMeta) stack.getItemMeta();
-                bookMeta.addStoredEnchant(Enchantment.DURABILITY, 0, true);
+                bookMeta.addStoredEnchant(Enchantment.UNBREAKING, 0, true);
                 bookMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             } else {
-                itemMeta.addEnchant(Enchantment.DURABILITY, 0, true);
+                itemMeta.addEnchant(Enchantment.UNBREAKING, 0, true);
                 itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             }
         }

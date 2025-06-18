@@ -56,7 +56,7 @@ public final class GreenThumb extends Zenchantment {
                     if (applied) {
                         Utilities.displayParticle(
                             Utilities.getCenter(centerBlock.getRelative(x, y + 1, z)),
-                            Particle.VILLAGER_HAPPY,
+                            Particle.HAPPY_VILLAGER,
                             20,
                             1f,
                             0.3f,

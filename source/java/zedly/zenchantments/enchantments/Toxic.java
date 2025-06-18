@@ -1,9 +1,6 @@
 package zedly.zenchantments.enchantments;
 
-import org.bukkit.entity.AbstractArrow;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
@@ -18,7 +15,7 @@ import zedly.zenchantments.task.Frequency;
 
 import java.util.*;
 
-import static org.bukkit.potion.PotionEffectType.CONFUSION;
+import static org.bukkit.potion.PotionEffectType.NAUSEA;
 import static org.bukkit.potion.PotionEffectType.HUNGER;
 
 @AZenchantment(runInSlots = Slots.HANDS, conflicting = {})
@@ -35,7 +32,7 @@ public final class Toxic extends Zenchantment {
 
         final int value = (int) Math.round(level * this.getPower());
 
-        Utilities.addPotionEffect((LivingEntity) event.getEntity(), CONFUSION, 80 + 60 * value, 4);
+        Utilities.addPotionEffect((LivingEntity) event.getEntity(), NAUSEA, 80 + 60 * value, 4);
         Utilities.addPotionEffect((LivingEntity) event.getEntity(), HUNGER, 40 + 60 * value, 4);
 
         if (!(event.getEntity() instanceof Player)) {
@@ -56,8 +53,18 @@ public final class Toxic extends Zenchantment {
 
     @Override
     public boolean onEntityShootBow(final @NotNull EntityShootBowEvent event, final int level, final EquipmentSlot slot) {
-        final ToxicArrow arrow = new ToxicArrow((AbstractArrow) event.getProjectile(), level, this.getPower());
-        ZenchantedArrow.addZenchantedArrowToArrowEntity((AbstractArrow) event.getProjectile(), arrow, (Player) event.getEntity());
+        final ToxicArrow arrow = new ToxicArrow((Projectile) event.getProjectile(), level, this.getPower());
+        ZenchantedArrow.addZenchantedArrowToArrowEntity((Projectile) event.getProjectile(), arrow, (Player) event.getEntity());
+        return true;
+    }
+
+    @Override
+    public boolean onProjectileLaunch(final @NotNull ProjectileLaunchEvent event, final int level, final EquipmentSlot slot) {
+        if(event.getEntity().getType() != EntityType.TRIDENT) {
+            return false;
+        }
+        final ToxicArrow arrow = new ToxicArrow(event.getEntity(), level, getPower());
+        ZenchantedArrow.addZenchantedArrowToArrowEntity(event.getEntity(), arrow, (Player) event.getEntity().getShooter());
         return true;
     }
 

@@ -22,7 +22,7 @@ import zedly.zenchantments.task.TaskRunner;
 import java.util.Locale;
 import java.util.Objects;
 
-import static org.bukkit.potion.PotionEffectType.FAST_DIGGING;
+import static org.bukkit.potion.PotionEffectType.HASTE;
 
 public class ZenchantmentsPlugin extends JavaPlugin implements Zenchantments {
     private static ZenchantmentsPlugin instance;
@@ -82,7 +82,7 @@ public class ZenchantmentsPlugin extends JavaPlugin implements Zenchantments {
             }
 
             if (player.hasMetadata("ze.haste")) {
-                player.removePotionEffect(FAST_DIGGING);
+                player.removePotionEffect(HASTE);
                 player.removeMetadata("ze.haste", this);
             }
         }

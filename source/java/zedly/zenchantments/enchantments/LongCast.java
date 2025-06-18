@@ -10,7 +10,7 @@ import zedly.zenchantments.*;
 public final class LongCast extends Zenchantment {
     @Override
     public boolean onProjectileLaunch(final @NotNull ProjectileLaunchEvent event, final int level, final EquipmentSlot slot) {
-        if (event.getEntity().getType() == EntityType.FISHING_HOOK) {
+        if (event.getEntity().getType() == EntityType.FISHING_BOBBER) {
             event.getEntity().setVelocity(
                 event.getEntity()
                     .getVelocity()

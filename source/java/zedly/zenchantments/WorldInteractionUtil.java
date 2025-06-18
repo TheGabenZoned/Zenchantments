@@ -19,10 +19,10 @@ import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Bamboo;
 import org.bukkit.block.data.type.Leaves;
-import org.bukkit.craftbukkit.v1_19_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_19_R2.block.data.CraftBlockData;
-import org.bukkit.craftbukkit.v1_19_R2.entity.*;
-import org.bukkit.craftbukkit.v1_19_R2.util.CraftChatMessage;
+import org.bukkit.craftbukkit.v1_20_R4.CraftWorld;
+import org.bukkit.craftbukkit.v1_20_R4.block.data.CraftBlockData;
+import org.bukkit.craftbukkit.v1_20_R4.entity.*;
+import org.bukkit.craftbukkit.v1_20_R4.util.CraftChatMessage;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.*;
@@ -449,9 +449,6 @@ public class WorldInteractionUtil {
                 case "CraftMetaItem":
                 case "CraftMetaEnchantedBook":
                     f = meta.getClass().getDeclaredField("enchantments");
-                    break;
-                case "CraftMetaColorableArmor":
-                    f = meta.getClass().getSuperclass().getSuperclass().getDeclaredField("enchantments");
                     break;
                 default:
                     f = meta.getClass().getSuperclass().getDeclaredField("enchantments");

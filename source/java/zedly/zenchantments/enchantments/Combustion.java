@@ -14,8 +14,8 @@ public final class Combustion extends Zenchantment {
     public boolean onBeingHit(final @NotNull EntityDamageByEntityEvent event, final int level, final EquipmentSlot slot) {
         final Entity entity;
 
-        if (event.getDamager().getType() == EntityType.ARROW) {
-            final AbstractArrow arrow = (AbstractArrow) event.getDamager();
+        if (event.getDamager() instanceof Projectile) {
+            final Projectile arrow = (Projectile) event.getDamager();
             if (!(arrow.getShooter() instanceof LivingEntity)) {
                 return false;
             }

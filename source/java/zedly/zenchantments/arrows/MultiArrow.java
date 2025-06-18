@@ -3,6 +3,7 @@ package zedly.zenchantments.arrows;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -10,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import zedly.zenchantments.ZenchantmentsPlugin;
 
 public final class MultiArrow extends ZenchantedArrow {
-    public MultiArrow(final @NotNull AbstractArrow entity) {
+    public MultiArrow(final @NotNull Projectile entity) {
         super(entity);
     }
 
