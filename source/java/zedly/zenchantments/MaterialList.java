@@ -469,6 +469,7 @@ public final class MaterialList extends AbstractList<Material> {
         OPEN_EYEBLOSSOM,
         PINK_PETALS,
         TORCHFLOWER,
+        TORCHFLOWER_CROP,
         WILDFLOWERS,
         CACTUS_FLOWER
     );
@@ -807,7 +808,8 @@ public final class MaterialList extends AbstractList<Material> {
             SMITHING_TABLE,
             LECTERN,
             SMOKER,
-            BLAST_FURNACE
+            BLAST_FURNACE,
+            CALIBRATED_SCULK_SENSOR
         },
         BEDS,
         WOODEN_DOORS,
@@ -989,7 +991,9 @@ public final class MaterialList extends AbstractList<Material> {
             CLAY,
             MUD,
             MUDDY_MANGROVE_ROOTS,
-            ROOTED_DIRT
+            ROOTED_DIRT,
+            SUSPICIOUS_SAND,
+            SUSPICIOUS_GRAVEL
         },
         SANDS
     );
