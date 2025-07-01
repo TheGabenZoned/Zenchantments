@@ -239,13 +239,6 @@ enchantments:
               max-level: 3
               cooldown: 0
               power: 1.0
-      - LightningRod:
-              probability: 4.0
-              tools: Bow, Trident
-              name: Lightning Rod
-              max-level: 1
-              cooldown: 0
-              power: 1.0
       - LongCast:
               probability: 5.0
               tools: Rod
