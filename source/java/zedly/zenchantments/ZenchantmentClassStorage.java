@@ -38,6 +38,7 @@ public class ZenchantmentClassStorage {
         Jump.class,
         Laser.class,
         Level.class,
+        LightningRod.class,
         LongCast.class,
         Lumber.class,
         Magnetism.class,
