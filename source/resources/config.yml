@@ -1,4 +1,4 @@
-ZenchantmentsConfigVersion: 1.5.2
+ZenchantmentsConfigVersion: 1.5.3
 
 # probability: (Decimal) (0 = no probability, -1 = disabled)
 #    Chance of obtaining the enchantment when enchanting
@@ -237,6 +237,13 @@ enchantments:
               tools: Bow, Sword, Pickaxe, Trident
               name: Level
               max-level: 3
+              cooldown: 0
+              power: 1.0
+      - LightningRod:
+              probability: 4.0
+              tools: Bow, Trident
+              name: Lightning Rod
+              max-level: 1
               cooldown: 0
               power: 1.0
       - LongCast:

@@ -2,6 +2,7 @@ package zedly.zenchantments.enchantments;
 
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -62,12 +63,13 @@ public final class Reveal extends Zenchantment {
                         GLOWING_BLOCKS.put(block, 1);
                     }
 
-                    if (!WorldInteractionUtil.showShulker(block, entityId, player)) {
+                    Entity fel = WorldInteractionUtil.showShulker(block, entityId, player);
+                    if (fel == null) {
                         return false;
                     }
 
                     ZenchantmentsPlugin.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(ZenchantmentsPlugin.getInstance(), () -> {
-                        WorldInteractionUtil.hideFakeEntity(entityId, player);
+                        WorldInteractionUtil.hideFakeEntity(player.getWorld(), entityId);
                         if (GLOWING_BLOCKS.containsKey(block) && GLOWING_BLOCKS.get(block) > 1) {
                             GLOWING_BLOCKS.put(block, GLOWING_BLOCKS.get(block) - 1);
                         } else {

@@ -1,6 +1,6 @@
 package zedly.zenchantments;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +20,7 @@ public enum Tool {
     ),
     SWORD(
         "Sword",
-        new Material[] { WOODEN_SWORD, STONE_SWORD, GOLDEN_SWORD, IRON_SWORD, DIAMOND_SWORD, NETHERITE_SWORD }
+        new Material[] { WOODEN_SWORD, STONE_SWORD, GOLDEN_SWORD, IRON_SWORD, DIAMOND_SWORD, NETHERITE_SWORD, MACE }
     ),
     PICKAXE(
         "Pickaxe",
@@ -45,6 +45,14 @@ public enum Tool {
     LIGHTER(
         "Lighter",
         new Material[] { FLINT_AND_STEEL }
+    ),
+    BRUSH(
+        "Brush",
+        new Material[] { Material.BRUSH }
+    ),
+    SHIELD(
+        "Shield",
+        new Material[] { Material.SHIELD }
     ),
     HOE(
         "Hoe",
@@ -148,7 +156,10 @@ public enum Tool {
             GOLDEN_BOOTS,
             CHAINMAIL_BOOTS,
             LEATHER_BOOTS,
-            Material.TRIDENT
+            Material.TRIDENT,
+            Material.BRUSH,
+            MACE,
+            Material.SHIELD
         }
     );
 

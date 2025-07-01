@@ -4,6 +4,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import zedly.zenchantments.api.Zenchantments;
 import zedly.zenchantments.command.ZenchantmentsCommandHandler;
@@ -21,8 +22,6 @@ import zedly.zenchantments.task.TaskRunner;
 
 import java.util.Locale;
 import java.util.Objects;
-
-import static org.bukkit.potion.PotionEffectType.FAST_DIGGING;
 
 public class ZenchantmentsPlugin extends JavaPlugin implements Zenchantments {
     private static ZenchantmentsPlugin instance;
@@ -82,7 +81,7 @@ public class ZenchantmentsPlugin extends JavaPlugin implements Zenchantments {
             }
 
             if (player.hasMetadata("ze.haste")) {
-                player.removePotionEffect(FAST_DIGGING);
+                player.removePotionEffect(PotionEffectType.HASTE);
                 player.removeMetadata("ze.haste", this);
             }
         }

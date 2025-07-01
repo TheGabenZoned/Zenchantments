@@ -12,7 +12,7 @@ public final class ShortCast extends Zenchantment {
     @Override
     public boolean onProjectileLaunch(final @NotNull ProjectileLaunchEvent event, final int level, final EquipmentSlot slot) {
         final Entity entity = event.getEntity();
-        if (entity.getType() == EntityType.FISHING_HOOK) {
+        if (entity.getType() == EntityType.FISHING_BOBBER) {
             entity.setVelocity(entity.getVelocity().normalize().multiply((0.8f / (level * this.getPower()))));
         }
         return true;

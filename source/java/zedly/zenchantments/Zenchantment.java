@@ -56,28 +56,6 @@ public abstract class Zenchantment implements Keyed, zedly.zenchantments.api.Zen
     private boolean recursionLock;
     private boolean cursed = false;
 
-    /*
-    protected Zenchantment(
-        final @NotNull Set<Tool> enchantable,
-        final int maxLevel,
-        final int cooldown,
-        final double power,
-        final float probability,
-        final Set<Class<? extends Zenchantment>> conflicting,
-        final Collection<EquipmentSlot> applyToSlots
-    ) {
-        this.enchantable = enchantable;
-        this.name = translateString("zenchantment." + getI18nKey() + ".name");
-        this.description = translateString("zenchantment." + getI18nKey() + ".description");
-        this.maxLevel = maxLevel;
-        this.cooldown = cooldown;
-        this.power = power;
-        this.probability = probability;
-        this.conflicting = conflicting;
-        this.key = new NamespacedKey(ZenchantmentsPlugin.getInstance(), getI18nKey());
-        this.applyToSlots = applyToSlots;
-    }
-    */
 
     //region Static Methods
     public static void applyForTool(
@@ -87,6 +65,7 @@ public abstract class Zenchantment implements Keyed, zedly.zenchantments.api.Zen
     ) {
         requireNonNull(player);
         requireNonNull(action);
+        assert slot != null;
         ItemStack tool = player.getInventory().getItem(slot);
         if (tool == null) {
             return;
@@ -216,13 +195,6 @@ public abstract class Zenchantment implements Keyed, zedly.zenchantments.api.Zen
                     return true;
                 }
             }
-            if (config.isDescriptionLoreEnabled())
-                // Match old description with corrupted invisible color codes
-                for (String descriptionLine : zen.getOldDescription(config)) {
-                    if (string.equals(WorldInteractionUtil.reproduceCorruptedInvisibleSequence(descriptionLine))) {
-                        return true;
-                    }
-                }
 
         }
         return false;
@@ -304,7 +276,7 @@ public abstract class Zenchantment implements Keyed, zedly.zenchantments.api.Zen
         }
 
         for (Map.Entry<Enchantment, Integer> set : enchantments.entrySet()) {
-            if (!(set.getKey().equals(Enchantment.DURABILITY) && (durabilityLevel = set.getValue()) == 0)) {
+            if (!(set.getKey().equals(Enchantment.UNBREAKING) && (durabilityLevel = set.getValue()) == 0)) {
                 containsNormal = true;
             } else {
                 containsHidden = true;
@@ -314,12 +286,12 @@ public abstract class Zenchantment implements Keyed, zedly.zenchantments.api.Zen
         if (containsNormal || (!zenchantment && containsHidden)) {
             if (stack.getType() == ENCHANTED_BOOK) {
                 if (durabilityLevel == 0) {
-                    bookMeta.removeStoredEnchant(Enchantment.DURABILITY);
+                    bookMeta.removeStoredEnchant(Enchantment.UNBREAKING);
                 }
                 bookMeta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
             } else {
                 if (durabilityLevel == 0) {
-                    itemMeta.removeEnchant(Enchantment.DURABILITY);
+                    itemMeta.removeEnchant(Enchantment.UNBREAKING);
                 }
                 itemMeta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
             }
@@ -327,10 +299,10 @@ public abstract class Zenchantment implements Keyed, zedly.zenchantments.api.Zen
             if (stack.getType() == BOOK) {
                 stack.setType(ENCHANTED_BOOK);
                 bookMeta = (EnchantmentStorageMeta) stack.getItemMeta();
-                bookMeta.addStoredEnchant(Enchantment.DURABILITY, 0, true);
+                bookMeta.addStoredEnchant(Enchantment.UNBREAKING, 0, true);
                 bookMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             } else {
-                itemMeta.addEnchant(Enchantment.DURABILITY, 0, true);
+                itemMeta.addEnchant(Enchantment.UNBREAKING, 0, true);
                 itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             }
         }

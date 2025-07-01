@@ -14,9 +14,10 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 import zedly.zenchantments.*;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
-import static org.bukkit.block.Biome.*;
 import static org.bukkit.event.entity.EntityDamageEvent.DamageCause.FIRE;
 import static org.bukkit.event.entity.EntityDamageEvent.DamageCause.LAVA;
 import static org.bukkit.event.entity.EntityDamageEvent.DamageCause.*;
@@ -26,15 +27,6 @@ public final class BlazesCurse extends Zenchantment {
     private static final float SUBMERGE_DAMAGE = 1.5f;
     private static final float RAIN_DAMAGE = 0.5f;
     private static final float SNOWBALL_DAMAGE = 1.0f;
-    private static final EnumSet<Biome> DRY_BIOMES = EnumSet.of(
-        DESERT,
-        SAVANNA,
-        SAVANNA_PLATEAU,
-        WINDSWEPT_SAVANNA,
-        BADLANDS,
-        WOODED_BADLANDS,
-        ERODED_BADLANDS
-    );
 
     @Override
     public boolean onEntityDamage(final @NotNull EntityDamageEvent event, final int level, final EquipmentSlot slot) {
@@ -100,7 +92,16 @@ public final class BlazesCurse extends Zenchantment {
                 return true;
         }
 
-        if (player.getWorld().hasStorm() && !DRY_BIOMES.contains(player.getLocation().getBlock().getBiome())) {
+        List<Biome> dryBiomes = new ArrayList<>();
+        dryBiomes.add(Biome.DESERT);
+        dryBiomes.add(Biome.SAVANNA);
+        dryBiomes.add(Biome.SAVANNA_PLATEAU);
+        dryBiomes.add(Biome.WINDSWEPT_SAVANNA);
+        dryBiomes.add(Biome.BADLANDS);
+        dryBiomes.add(Biome.WOODED_BADLANDS);
+        dryBiomes.add(Biome.ERODED_BADLANDS);
+
+        if (player.getWorld().hasStorm() && !dryBiomes.contains(player.getLocation().getBlock().getBiome())) {
             final Location checkLocation = player.getLocation();
             if (checkLocation.getWorld().getHighestBlockAt(checkLocation).getY() <= checkLocation.getY() + 1) {
                 WorldInteractionUtil.damagePlayer(player, RAIN_DAMAGE, EntityDamageEvent.DamageCause.CUSTOM);

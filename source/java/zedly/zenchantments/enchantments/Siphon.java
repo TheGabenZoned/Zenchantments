@@ -27,7 +27,7 @@ public final class Siphon extends Zenchantment {
             final Player player = (Player) event.getDamager();
             int difference = (int) Math.round(0.17 * level * this.getPower() * event.getDamage());
 
-            final double genericMaxHealth = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue();
+            final double genericMaxHealth = Objects.requireNonNull(player.getAttribute(Attribute.MAX_HEALTH)).getValue();
 
             while (difference > 0) {
                 if (player.getHealth() < genericMaxHealth) {

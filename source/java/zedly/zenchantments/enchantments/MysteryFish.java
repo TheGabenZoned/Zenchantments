@@ -90,7 +90,9 @@ public final class MysteryFish extends Zenchantment {
         MYSTERY_SPAWN_RATES.put(93, GLOW_SQUID);
         MYSTERY_SPAWN_RATES.put(97, DOLPHIN);
         MYSTERY_SPAWN_RATES.put(100, TURTLE);
+        MYSTERY_SPAWN_RATES.put(105, FROG);
+        MYSTERY_SPAWN_RATES.put(110, TADPOLE);
 
-        RANDOM_RANGE = 100;
+        RANDOM_RANGE = 110;
     }
 }

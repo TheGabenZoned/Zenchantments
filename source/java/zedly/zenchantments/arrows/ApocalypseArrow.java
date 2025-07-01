@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import zedly.zenchantments.ZenchantmentsPlugin;
@@ -14,7 +15,6 @@ import zedly.zenchantments.configuration.WorldConfigurationProvider;
 import static org.bukkit.Material.FIRE;
 import static org.bukkit.entity.EntityType.BLAZE;
 import static org.bukkit.potion.PotionEffectType.ABSORPTION;
-import static org.bukkit.potion.PotionEffectType.HARM;
 
 public final class ApocalypseArrow extends ZenchantedArrow {
     public ApocalypseArrow(final @NotNull Projectile entity) {
@@ -55,16 +55,16 @@ public final class ApocalypseArrow extends ZenchantedArrow {
 
                         entity.setVelocity(vector.multiply(1.5));
 
-                        final TNTPrimed prime = (TNTPrimed) this.getArrow().getWorld().spawnEntity(location, EntityType.PRIMED_TNT);
+                        final TNTPrimed prime = (TNTPrimed) this.getArrow().getWorld().spawnEntity(location, EntityType.TNT);
                         prime.setFuseTicks(200);
                         prime.setYield(config.isExplosionBlockBreakEnabled() ? 4 : 0);
 
                         final Blaze blaze = (Blaze) this.getArrow().getWorld().spawnEntity(location, BLAZE);
                         blaze.addPotionEffect(new PotionEffect(ABSORPTION, 150, 100000));
-                        blaze.addPotionEffect(new PotionEffect(HARM, 10000, 1));
+                        blaze.addPotionEffect(new PotionEffect(PotionEffectType.INSTANT_DAMAGE, 10000, 1));
 
                         if (config.isExplosionBlockBreakEnabled()) {
-                            final Entity crystal = this.getArrow().getWorld().spawnEntity(location, EntityType.ENDER_CRYSTAL);
+                            final Entity crystal = this.getArrow().getWorld().spawnEntity(location, EntityType.END_CRYSTAL);
                             entity.addPassenger(prime);
                             crystal.addPassenger(blaze);
                             prime.addPassenger(crystal);

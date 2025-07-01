@@ -56,7 +56,7 @@ public final class Utilities {
     }
 
     public static int getUnbreakingLevel(ItemStack is) {
-        return is.getEnchantmentLevel(Enchantment.DURABILITY);
+        return is.getEnchantmentLevel(Enchantment.UNBREAKING);
     }
 
     public static boolean decideRandomlyIfDamageToolRespectUnbreaking(int unbreakingLevel) {
@@ -375,11 +375,9 @@ public final class Utilities {
             if (effect.getType() != effectType) {
                 continue;
             }
-
-            if (effect.getAmplifier() >= intensity || effect.getDuration() > length) {
+            if (effect.getAmplifier() > intensity || effect.getDuration() > length) {
                 return;
             }
-
             entity.removePotionEffect(effectType);
         }
 

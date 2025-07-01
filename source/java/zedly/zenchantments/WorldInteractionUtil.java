@@ -1,16 +1,5 @@
 package zedly.zenchantments;
 
-import net.minecraft.core.BlockPosition;
-import net.minecraft.network.protocol.game.*;
-import net.minecraft.server.level.EntityPlayer;
-import net.minecraft.world.EnumInteractionResult;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.EntityAnimal;
-import net.minecraft.world.entity.animal.EntityMushroomCow;
-import net.minecraft.world.entity.animal.EntitySheep;
-import net.minecraft.world.entity.player.EntityHuman;
-import net.minecraft.world.level.block.state.IBlockData;
-import net.minecraft.world.phys.Vec3D;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -19,23 +8,22 @@ import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Bamboo;
 import org.bukkit.block.data.type.Leaves;
-import org.bukkit.craftbukkit.v1_19_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_19_R2.block.data.CraftBlockData;
-import org.bukkit.craftbukkit.v1_19_R2.entity.*;
-import org.bukkit.craftbukkit.v1_19_R2.util.CraftChatMessage;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.damage.DamageType;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.*;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.EntityBlockFormEvent;
-import org.bukkit.event.entity.EntityCombustByEntityEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerHarvestBlockEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import zedly.zenchantments.event.ZenBlockPlaceEvent;
@@ -44,36 +32,20 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static java.util.Objects.requireNonNull;
 import static org.bukkit.Material.BAMBOO;
 
 public class WorldInteractionUtil {
     private WorldInteractionUtil() {
     }
 
-    @NotNull
-    public static String reproduceCorruptedInvisibleSequence(final @NotNull String original) {
-        requireNonNull(original);
-        return CraftChatMessage.fromJSONComponent(CraftChatMessage.fromStringToJSON(original, false));
-    }
-
 
     public static void collectExp(final @NotNull Player player, final int amount) {
-        final EntityExperienceOrb orb = new EntityExperienceOrb(
-            ((CraftWorld) player.getWorld()).getHandle(),
-            player.getLocation().getX(),
-            player.getLocation().getY(),
-            player.getLocation().getZ(),
-            amount
-        );
-        final EntityHuman human = ((CraftPlayer) player).getHandle();
-        ObfuscationUtil.experienceOrbPickup(orb, human); // XP Orb Entity handles mending. Don't blame me, I didn't code it.
-        ObfuscationUtil.resetXPPickupTimer(human); // Reset XP Pickup Timer.
+        Location location = player.getLocation();
+        player.getWorld().spawn(location, ExperienceOrb.class).setExperience(amount);
     }
 
     public static boolean breakBlock(final @NotNull Block block, final @NotNull Player player) {
-        final EntityPlayer ep = ((CraftPlayer) player).getHandle();
-        return ObfuscationUtil.breakBlockAsPlayer(ep, new BlockPosition(block.getX(), block.getY(), block.getZ()));
+        return player.breakBlock(block);
     }
 
     public static boolean placeBlock(
@@ -114,59 +86,33 @@ public class WorldInteractionUtil {
         return true;
     }
 
-    public static boolean attackEntity(
-        final @NotNull LivingEntity target,
-        final @NotNull Player attacker,
-        final double damage
-    ) {
-        final EntityDamageByEntityEvent damageEvent = new EntityDamageByEntityEvent(attacker, target, DamageCause.ENTITY_ATTACK, damage);
+    public static boolean attackEntity(final @NotNull LivingEntity target, final @NotNull Player attacker, final double damage) {
+        DamageSource.Builder damageSourceB = DamageSource.builder(DamageType.GENERIC);
+        damageSourceB.withCausingEntity(attacker);
+        damageSourceB.withDamageLocation(target.getLocation());
+        damageSourceB.withDirectEntity(attacker);
+        DamageSource damageSource = damageSourceB.build();
 
-        Bukkit.getServer().getPluginManager().callEvent(damageEvent);
-
-        if (damage == 0) {
-            return !damageEvent.isCancelled();
-        }
-
-        if (damageEvent.isCancelled()) {
-            return false;
+        final EntityDamageEvent entityDamageEvent = new EntityDamageEvent(target, DamageCause.ENTITY_ATTACK, damageSource, damage);
+        Bukkit.getServer().getPluginManager().callEvent(entityDamageEvent);
+        if (damage == 0 || entityDamageEvent.isCancelled()) {
+            return !entityDamageEvent.isCancelled();
         }
 
         target.damage(damage, attacker);
-        target.setLastDamageCause(damageEvent);
         return true;
     }
 
     public static boolean canAnimalEnterLoveMode(Animals animal) {
         if (animal.isAdult()) {
-            EntityAnimal ea = ((CraftAnimals)animal).getHandle();
-            int i = ObfuscationUtil.getAnimalsLoveModeTimer(ea);
-            if (!ObfuscationUtil.isInAnimalsWorldBreedingDisabled(ea) && i == 0 && ObfuscationUtil.isAnimalNotInLove(ea)) {
-                return true;
-            }
+            return animal.getLoveModeTicks() == 0 && !animal.isLoveMode();
         }
         return false;
     }
 
     public static void animalEnterLoveMode(Animals animal, Player feeder) {
-        ObfuscationUtil.animalEnterLoveMode(((CraftAnimals)animal).getHandle(), ((CraftPlayer) feeder).getHandle());
-    }
-
-    public static boolean shearEntityNMS(
-        final @NotNull Entity target,
-        final @NotNull Player player,
-        final EquipmentSlot slot
-    ) {
-        if (target instanceof CraftSheep) {
-            final EntitySheep entitySheep = ((CraftSheep) target).getHandle();
-            final EnumInteractionResult result = ObfuscationUtil.shearSheep(entitySheep, ((CraftPlayer) player).getHandle(), ObfuscationUtil.getNMSEnumHand(slot));
-            return ObfuscationUtil.isInteractionResultAllowed(result);
-        } else if (target instanceof CraftMushroomCow) {
-            final EntityMushroomCow entityMushroomCow = ((CraftMushroomCow) target).getHandle();
-            final EnumInteractionResult result = ObfuscationUtil.shearMooshroom(entityMushroomCow, ((CraftPlayer) player).getHandle(), ObfuscationUtil.getNMSEnumHand(slot));
-            return ObfuscationUtil.isInteractionResultAllowed(result);
-        }
-
-        return false;
+        animal.setLoveModeTicks(200);
+        animal.setBreedCause(feeder.getUniqueId());
     }
 
     public static boolean igniteEntity(final @NotNull Entity target, final @NotNull Player player, final int duration) {
@@ -183,22 +129,20 @@ public class WorldInteractionUtil {
 
     }
 
-    public static boolean damagePlayer(final @NotNull Player player, final double damage, final @NotNull DamageCause cause) {
-        final EntityDamageEvent event = new EntityDamageEvent(player, cause, damage);
+    public static void damagePlayer(final @NotNull Player player, final double damage, final @NotNull DamageCause cause) {
+        DamageSource.Builder damageSourceB = DamageSource.builder(DamageType.GENERIC);
+        damageSourceB.withCausingEntity(player);
+        damageSourceB.withDamageLocation(player.getLocation());
+        damageSourceB.withDirectEntity(player);
+        DamageSource damageSource = damageSourceB.build();
 
-        Bukkit.getServer().getPluginManager().callEvent(event);
-
-        if (damage == 0) {
-            return !event.isCancelled();
+        final EntityDamageEvent entityDamageEvent = new EntityDamageEvent(player, cause, damageSource, damage);
+        Bukkit.getServer().getPluginManager().callEvent(entityDamageEvent);
+        if (damage == 0 || entityDamageEvent.isCancelled()) {
+            return;
         }
 
-        if (event.isCancelled()) {
-            return false;
-        }
-
-        player.setLastDamageCause(event);
-        player.damage(damage);
-        return true;
+        player.damage(damage, player);
     }
 
     public static boolean formBlock(final @NotNull Block block, final @NotNull Material material, final @NotNull Player player) {
@@ -218,15 +162,18 @@ public class WorldInteractionUtil {
         return true;
     }
 
-    public static boolean showShulker(final @NotNull Block blockToHighlight, final int entityId, final @NotNull Player player) {
+    public static Entity showShulker(final @NotNull Block blockToHighlight, final int entityId, final @NotNull Player player) {
         return showHighlightBlock(blockToHighlight, entityId, player);
     }
 
-    public static boolean hideFakeEntity(final int entityId, final @NotNull Player player) {
-        final PacketPlayOutEntityDestroy packet = new PacketPlayOutEntityDestroy(entityId);
-        final EntityPlayer ep = ((CraftPlayer) player).getHandle();
-        ObfuscationUtil.sendPacketToPlayer(ep, packet);
-        return true;
+    public static void hideFakeEntity(World world, int entityId) {
+        List<Entity> entityList = world.getEntities();
+        for (Entity entity: entityList) {
+            if (entity.hasMetadata("temporary")) {
+                entity.remove();
+                return;
+            }
+        }
     }
 
     public static boolean isZombie(final @NotNull Entity entity) {
@@ -245,7 +192,7 @@ public class WorldInteractionUtil {
     }
 
     public static boolean grow(@NotNull Block cropBlock, final @NotNull Player player) {
-        final Material material = cropBlock.getType();
+        Material material = cropBlock.getType();
 
         BlockData data = cropBlock.getBlockData();
 
@@ -260,8 +207,7 @@ public class WorldInteractionUtil {
             case BEETROOTS:
             case SWEET_BERRY_BUSH:
                 final BlockData cropState = cropBlock.getBlockData();
-                if (cropState instanceof Ageable) {
-                    final Ageable ageable = (Ageable) cropState;
+                if (cropState instanceof Ageable ageable) {
 
                     if (ageable.getAge() >= ageable.getMaximumAge()) {
                         return false;
@@ -281,6 +227,7 @@ public class WorldInteractionUtil {
                 cropBlock = cropBlock.getRelative(BlockFace.UP);
 
                 bamboo.setLeaves(Bamboo.Leaves.SMALL);
+                material = BAMBOO;
 
                 data = bamboo;
                 break;
@@ -466,11 +413,11 @@ public class WorldInteractionUtil {
         return null;
     }
 
-    private static boolean showHighlightBlock(final @NotNull Block block, int entityId, final @NotNull Player player) {
+    private static Entity showHighlightBlock(final @NotNull Block block, int entityId, final @NotNull Player player) {
         return showHighlightBlock(block.getX(), block.getY(), block.getZ(), entityId, player);
     }
 
-    private static boolean showHighlightBlock(
+    private static Entity showHighlightBlock(
         final int x,
         final int y,
         final int z,
@@ -478,40 +425,35 @@ public class WorldInteractionUtil {
         final @NotNull Player player
     ) {
         try {
-            final PacketPlayOutSpawnEntity spawnPacket = generateShulkerSpawnPacket(x, y, z, entityId);
-            final PacketPlayOutEntityMetadata metadataPacket = ObfuscationUtil.generateShulkerGlowPacket(entityId);
-            final EntityPlayer ep = ((CraftPlayer) player).getHandle();
-            ObfuscationUtil.sendPacketToPlayer(ep, spawnPacket);
-            ObfuscationUtil.sendPacketToPlayer(ep, metadataPacket);
-            return true;
+            final Entity entity = generateShulkerSpawnPacket(player, x, y, z, entityId);
+            entity.setGlowing(true);
+            return entity;
         } catch (InstantiationException ex) {
-            return false;
+            return null;
         }
     }
 
     @NotNull
-    private static PacketPlayOutSpawnEntity generateShulkerSpawnPacket(
-        final int x, final int y, final int z, final int entityId) throws InstantiationException {
-        final UUID uuid = UUID.randomUUID();
-        ObfuscationUtil.FakeEntityLiving fel = new ObfuscationUtil.FakeEntityLiving(ObfuscationUtil.getShulkerEntityType(), entityId, uuid, x, y, z);
-        PacketPlayOutSpawnEntity packet = new PacketPlayOutSpawnEntity(fel);
-        return packet;
+    private static Entity generateShulkerSpawnPacket(
+        Player player, final int x, final int y, final int z, final int entityId) throws InstantiationException {
+        World world = player.getWorld();
+        Location location = new Location(world,x,y,z);
+        Entity fel = world.spawnEntity(location, EntityType.SHULKER);
+        fel.setVisibleByDefault(false);
+        fel.setSilent(true);
+        if (fel instanceof LivingEntity) {
+            ((LivingEntity) fel).addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 300, 1));
+            ((LivingEntity) fel).setAI(false);
+        }
+        fel.setMetadata("temporary",new FixedMetadataValue(ZenchantmentsPlugin.getInstance(),"temporary"));
+        player.showEntity(ZenchantmentsPlugin.getInstance(), fel);
+        return fel;
     }
 
-    public static void showQuakeBlock(Player player, final int entityId, final Block block) {
-        final EntityPlayer ep = ((CraftPlayer) player).getHandle();
-        PacketPlayOutSpawnEntity ppose = generateFallingBlockSpawnPacket(block.getX() + 0.5, block.getY(), block.getZ() + 0.5, entityId, block);
-        PacketPlayOutEntityVelocity ppoev = new PacketPlayOutEntityVelocity(entityId, new Vec3D(0, 0.28, 0));
-        ObfuscationUtil.sendPacketToPlayer(ep, ppose);
-        ObfuscationUtil.sendPacketToPlayer(ep, ppoev);
-    }
-
-    @NotNull
-    private static PacketPlayOutSpawnEntity generateFallingBlockSpawnPacket(
-        final double x, final double y, final double z, final int entityId, final Block block) {
-        final UUID uuid = UUID.randomUUID();
-        IBlockData blockData = ((CraftBlockData) block.getBlockData()).getState();
-        PacketPlayOutSpawnEntity packet = new PacketPlayOutSpawnEntity(entityId, uuid, x, y, z, 0, 0, ObfuscationUtil.getFallingBlockEntityType(), ObfuscationUtil.getNumericalBlockType(blockData), new Vec3D(0, 0, 0), 0);
-        return packet;
+    public static void showQuakeBlock(Player player, final Block block) {
+        World world = player.getWorld();
+        BlockData blockData = block.getBlockData();
+        FallingBlock fb = world.spawnFallingBlock(block.getLocation().add(0.5,0,0.5), blockData);
+        fb.setMetadata("temporary",new FixedMetadataValue(ZenchantmentsPlugin.getInstance(),"temporary"));
     }
 }

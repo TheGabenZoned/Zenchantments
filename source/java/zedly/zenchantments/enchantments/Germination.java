@@ -103,7 +103,7 @@ public final class Germination extends Zenchantment {
 
                     Utilities.displayParticle(
                         Utilities.getCenter(relativeBlock),
-                        Particle.VILLAGER_HAPPY,
+                        Particle.HAPPY_VILLAGER,
                         30,
                         1f,
                         0.3f,

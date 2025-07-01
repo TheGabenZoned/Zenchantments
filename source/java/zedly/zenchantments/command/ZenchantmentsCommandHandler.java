@@ -1,7 +1,7 @@
 package zedly.zenchantments.command;
 
 import com.google.common.collect.ImmutableMap;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

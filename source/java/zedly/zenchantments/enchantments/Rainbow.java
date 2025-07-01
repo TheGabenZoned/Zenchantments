@@ -51,23 +51,24 @@ public final class Rainbow extends Zenchantment {
 
     @Override
     public boolean onShear(final @NotNull PlayerShearEntityEvent event, final int level, final EquipmentSlot slot) {
-        final Sheep sheep = (Sheep) event.getEntity();
-        if (sheep.isSheared()) {
-            return true;
+        if (event.getEntity() instanceof Sheep sheep) {
+            if (sheep.isSheared()) {
+                return true;
+            }
+
+            final int count = ThreadLocalRandom.current().nextInt(3) + 1;
+
+            Utilities.damageItemStackRespectUnbreaking(event.getPlayer(), 1, slot);
+
+            sheep.setSheared(true);
+            event.setCancelled(true);
+
+            event.getEntity().getWorld().dropItemNaturally(
+                event.getEntity().getLocation(),
+                new ItemStack(MaterialList.WOOL.getRandom(), count)
+            );
+
         }
-
-        final int count = ThreadLocalRandom.current().nextInt(3) + 1;
-
-        Utilities.damageItemStackRespectUnbreaking(event.getPlayer(), 1, slot);
-
-        sheep.setSheared(true);
-        event.setCancelled(true);
-
-        event.getEntity().getWorld().dropItemNaturally(
-            event.getEntity().getLocation(),
-            new ItemStack(MaterialList.WOOL.getRandom(), count)
-        );
-
         return true;
     }
 }

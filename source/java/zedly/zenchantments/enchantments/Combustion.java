@@ -30,7 +30,8 @@ public final class Combustion extends Zenchantment {
 
     public boolean onCombust(final @NotNull EntityCombustByEntityEvent event, final int level, final EquipmentSlot slot) {
         if (WorldInteractionUtil.isZombie(event.getCombuster())) {
-            event.setDuration(0);
+            Zombie zombie = (Zombie) event.getCombuster();
+            zombie.setFireTicks(0);
         }
         return false;
     }

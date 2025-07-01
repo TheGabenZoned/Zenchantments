@@ -69,7 +69,7 @@ public class Quake extends Zenchantment {
                 final int entityId = 2000000000 + (sourceBlock.hashCode()) % 10000000;
                 for(Player q : quakeViewers) {
                     q.sendBlockChange(sourceBlock.getLocation(), Material.AIR, (byte) 0);
-                    WorldInteractionUtil.showQuakeBlock(q, entityId, sourceBlock);
+                    WorldInteractionUtil.showQuakeBlock(q, sourceBlock);
                 }
             }
         }
@@ -90,7 +90,7 @@ public class Quake extends Zenchantment {
                 final int entityId = 2000000000 + (sourceBlock.hashCode()) % 10000000;
                 for(Player q : quakeViewers) {
                     q.sendBlockChange(sourceBlock.getLocation(), sourceBlock.getBlockData());
-                    WorldInteractionUtil.hideFakeEntity(entityId, q);
+                    WorldInteractionUtil.hideFakeEntity(q.getWorld(), entityId);
                 }
             }
         }

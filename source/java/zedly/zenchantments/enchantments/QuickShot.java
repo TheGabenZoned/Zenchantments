@@ -29,6 +29,9 @@ public final class QuickShot extends Zenchantment {
 
         if (bow.getType() == Material.CROSSBOW) {
             CrossbowMeta meta = (CrossbowMeta) bow.getItemMeta();
+            if (meta == null || meta.getChargedProjectiles().isEmpty()) {
+                return false;
+            }
             ItemStack previousArrow = meta.getChargedProjectiles().get(0);
             if(previousArrow == null) {
                 return false;

@@ -1,10 +1,11 @@
 package zedly.zenchantments.event.listener;
 
-import net.minecraft.util.Tuple;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Directional;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.damage.DamageType;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -95,7 +96,7 @@ public class GeneralListener implements Listener {
             location.setX(play.getX() + (i * ((target.getX() - play.getX()) / (distance * 10))));
             location.setY(play.getY() + (i * ((target.getY() - play.getY()) / (distance * 10))));
             location.setZ(play.getZ() + (i * ((target.getZ() - play.getZ()) / (distance * 10))));
-            requireNonNull(location.getWorld()).spawnParticle(Particle.REDSTONE, location, 1, new Particle.DustOptions(Color.RED, 0.75f));
+            requireNonNull(location.getWorld()).spawnParticle(Particle.DUST, location, 1, new Particle.DustOptions(Color.RED, 0.75f));
 
             for (final Entity entity : requireNonNull(play.getWorld()).getEntities()) {
                 if (entity.getLocation().distance(location) >= 0.75 || !(entity instanceof LivingEntity)) {
@@ -103,9 +104,14 @@ public class GeneralListener implements Listener {
                 }
 
                 final int damageAmount = 1 + (level * 2);
-                final EntityDamageEvent damageEvent = new EntityDamageEvent(entity, DamageCause.FIRE, damageAmount);
-                this.plugin.getServer().getPluginManager().callEvent(damageEvent);
-                entity.setLastDamageCause(damageEvent);
+                DamageSource.Builder damageSourceB = DamageSource.builder(DamageType.GENERIC);
+                damageSourceB.withCausingEntity(entity);
+                damageSourceB.withDamageLocation(entity.getLocation());
+                damageSourceB.withDirectEntity(entity);
+                DamageSource damageSource = damageSourceB.build();
+
+                final EntityDamageEvent entityDamageEvent = new EntityDamageEvent(entity, DamageCause.FIRE, damageSource, damageAmount);
+                this.plugin.getServer().getPluginManager().callEvent(entityDamageEvent);
 
                 if (!event.isCancelled()) {
                     ((LivingEntity) entity).damage(damageAmount);
@@ -146,15 +152,17 @@ public class GeneralListener implements Listener {
         AtomicInteger itemsDropped;
         if ((itemsDropped = Fire.ITEM_DROP_REPLACEMENTS.get(b)) != null) {
             ItemStack is = event.getEntity().getItemStack();
-            Tuple<Material, Double> product;
+            String product;
             if ((product = MaterialList.FIRE_SMELT_MAP.get(is.getType())) != null) {
+                Material material = Material.valueOf(product.split("\\|")[0]);
+                Double value = Double.parseDouble(product.split("\\|")[1]);
                 itemsDropped.addAndGet(is.getAmount());
-                is.setType(product.a());
+                is.setType(material);
                 event.getEntity().setItemStack(is);
                 Utilities.displayParticle(Utilities.getCenter(b), Particle.FLAME, 10, 0.1f, 0.5f, 0.5f, 0.5f);
 
-                int experience = product.b().intValue();
-                double remainder = product.b() - experience;
+                int experience = value.intValue();
+                double remainder = value - experience;
                 if (ThreadLocalRandom.current().nextDouble() >= remainder) {
                     experience++;
                 }
@@ -229,7 +237,7 @@ public class GeneralListener implements Listener {
             final int entityId = 2000000000 + event.getBlock().getRelative(face).hashCode() % 10000000;
             for (final Player player : this.plugin.getServer().getOnlinePlayers()) {
                 if (player.getWorld().equals(event.getBlock().getWorld())) {
-                    WorldInteractionUtil.hideFakeEntity(entityId, player);
+                    WorldInteractionUtil.hideFakeEntity(player.getWorld(), entityId);
                 }
             }
 
@@ -367,7 +375,7 @@ public class GeneralListener implements Listener {
 
         for (final Zenchantment zenchantment : zenchantments) {
             if (zenchantment.getClass() == Jump.class || zenchantment.getClass() == Meador.class) {
-                player.removePotionEffect(PotionEffectType.JUMP);
+                player.removePotionEffect(PotionEffectType.JUMP_BOOST);
             }
 
             if (zenchantment.getClass() == NightVision.class) {
@@ -375,7 +383,7 @@ public class GeneralListener implements Listener {
             }
 
             if (zenchantment.getClass() == Weight.class) {
-                player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+                player.removePotionEffect(PotionEffectType.STRENGTH);
             }
         }
     }

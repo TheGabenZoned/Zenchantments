@@ -17,7 +17,7 @@ public final class FirestormArrow extends ZenchantedArrow {
     }
 
     @Override
-    public void onImpactEntity(ProjectileHitEvent event) {
+    public void onImpactEntity(@NotNull ProjectileHitEvent event) {
         onImpact(event);
     }
 

@@ -3,6 +3,7 @@ package zedly.zenchantments.enchantments;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
@@ -12,6 +13,7 @@ import zedly.zenchantments.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static org.bukkit.Material.*;
+import static org.bukkit.block.Biome.MUSHROOM_FIELDS;
 
 @AZenchantment(runInSlots = Slots.ARMOR, conflicting = {})
 public final class GreenThumb extends Zenchantment {
@@ -40,12 +42,10 @@ public final class GreenThumb extends Zenchantment {
                     } else {
                         if (MaterialList.AIR.contains(relativeBlock.getRelative(0, 1, 0).getType())) {
                             final Material material;
-                            switch (relativeBlock.getBiome()) {
-                                case MUSHROOM_FIELDS:
-                                    material = MYCELIUM;
-                                    break;
-                                default:
-                                    material = GRASS_BLOCK;
+                            if (relativeBlock.getBiome().equals(MUSHROOM_FIELDS)) {
+                                material = MYCELIUM;
+                            } else {
+                                material = GRASS_BLOCK;
                             }
 
                             applied = WorldInteractionUtil.placeBlock(relativeBlock, player, material, null);
@@ -56,7 +56,7 @@ public final class GreenThumb extends Zenchantment {
                     if (applied) {
                         Utilities.displayParticle(
                             Utilities.getCenter(centerBlock.getRelative(x, y + 1, z)),
-                            Particle.VILLAGER_HAPPY,
+                            Particle.HAPPY_VILLAGER,
                             20,
                             1f,
                             0.3f,

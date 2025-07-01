@@ -1,6 +1,7 @@
 package zedly.zenchantments.event.listener.merge;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,7 +32,7 @@ import java.util.Map.Entry;
 import static java.util.Objects.*;
 import static org.bukkit.Material.AIR;
 import static org.bukkit.Material.ENCHANTED_BOOK;
-import static org.bukkit.enchantments.Enchantment.DURABILITY;
+import static org.bukkit.enchantments.Enchantment.UNBREAKING;
 
 public class AnvilMergeListener implements Listener {
     private final ZenchantmentsPlugin plugin;
@@ -64,27 +65,35 @@ public class AnvilMergeListener implements Listener {
 
         final EnchantmentStorageMeta bookMeta = (EnchantmentStorageMeta) event.getCurrentItem().getItemMeta();
 
-        if (requireNonNull(bookMeta).getStoredEnchants().containsKey(DURABILITY)
-            && bookMeta.getStoredEnchants().get(DURABILITY) == 0
+        if (requireNonNull(bookMeta).getEnchants().containsKey(UNBREAKING)
+            && bookMeta.getEnchants().get(UNBREAKING) == 1 && bookMeta.getItemFlags().contains(ItemFlag.HIDE_ENCHANTS)
         ) {
-            bookMeta.removeStoredEnchant(DURABILITY);
+            bookMeta.removeEnchant(UNBREAKING);
             event.getCurrentItem().setItemMeta(bookMeta);
         }
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     private void onClick(final @NotNull PrepareAnvilEvent event) {
-        if (event.getViewers().size() < 1) {
+        if (event.getViewers().isEmpty()) {
             return;
         }
 
         final AnvilInventory anvilInv = event.getInventory();
+        ItemStack left = anvilInv.getItem(0);
+        ItemStack right = anvilInv.getItem(1);
+        if (left == null || right == null) return;
+
         UNSTABLE_ANVIL_INVS.add(anvilInv);
 
         // Apply unbreaking 0 if necessary
         ItemStack rightItem = anvilInv.getItem(1);
-        if (handlePossibleEnchantedBook(rightItem)) {
+        ItemStack rightItemUpdated = handlePossibleEnchantedBook(rightItem);
+        if (rightItemUpdated != null) {
+            rightItem = rightItemUpdated;
             anvilInv.setItem(1, rightItem);
+        } else {
+            return;
         }
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, () -> {
@@ -96,6 +105,7 @@ public class AnvilMergeListener implements Listener {
             );
             if (stack != null) {
                 anvilInv.setItem(2, stack);
+                event.setResult(stack);
             }
             UNSTABLE_ANVIL_INVS.remove(anvilInv);
         }, 0);
@@ -111,27 +121,29 @@ public class AnvilMergeListener implements Listener {
         if (rightItem == null || rightItem.getType() != ENCHANTED_BOOK) {
             return;
         }
-        final EnchantmentStorageMeta bookMeta = (EnchantmentStorageMeta) rightItem.getItemMeta();
-        if (requireNonNull(bookMeta).getStoredEnchants().containsKey(DURABILITY)
-            && bookMeta.getStoredEnchants().get(DURABILITY) == 0
+        final ItemMeta bookMeta = rightItem.getItemMeta();
+        if (requireNonNull(bookMeta).getEnchants().containsKey(UNBREAKING)
+            && bookMeta.getEnchants().get(UNBREAKING) == 1
+            && bookMeta.getItemFlags().contains(ItemFlag.HIDE_ENCHANTS)
         ) {
-            bookMeta.removeStoredEnchant(DURABILITY);
+            bookMeta.removeEnchant(UNBREAKING);
             rightItem.setItemMeta(bookMeta);
         }
     }
 
 
-    private static boolean handlePossibleEnchantedBook(final @Nullable ItemStack item) {
+    private static ItemStack handlePossibleEnchantedBook(final @Nullable ItemStack item) {
         if (item != null && item.getType() == ENCHANTED_BOOK) {
-            final EnchantmentStorageMeta bookMeta = (EnchantmentStorageMeta) item.getItemMeta();
+            final ItemMeta bookMeta = item.getItemMeta();
 
-            if (!requireNonNull(bookMeta).getStoredEnchants().containsKey(DURABILITY)) {
-                bookMeta.addStoredEnchant(DURABILITY, 0, true);
+            if (!requireNonNull(bookMeta).getEnchants().containsKey(UNBREAKING)) {
+                bookMeta.addEnchant(UNBREAKING, 1, true);
+                bookMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                 item.setItemMeta(bookMeta);
-                return true;
+                return item;
             }
         }
-        return false;
+        return null;
     }
 
     @Nullable
@@ -142,13 +154,13 @@ public class AnvilMergeListener implements Listener {
         final ItemStack leftItem = anvilInv.getItem(0);
         final ItemStack rightItem = anvilInv.getItem(1);
         ItemStack oldOutItem = anvilInv.getItem(2);
-        if (leftItem == null || rightItem == null || oldOutItem == null) {
+        if (oldOutItem == null && rightItem != null) {
+            oldOutItem = leftItem;
+        }
+        if (leftItem == null || rightItem == null) {
             return null;
         }
         if (leftItem.getType() == AIR || rightItem.getType() == AIR || oldOutItem.getType() == AIR) {
-            return null;
-        }
-        if (!oldOutItem.hasItemMeta()) {
             return null;
         }
 
@@ -187,8 +199,8 @@ public class AnvilMergeListener implements Listener {
             ? ((EnchantmentStorageMeta) requireNonNull(rightItem.getItemMeta())).getStoredEnchants()
             : rightItem.getEnchantments();
 
-        final int leftUnbreakingLevel = leftVanillaEnchantments.getOrDefault(DURABILITY, -1);
-        final int rightUnbreakingLevel = rightVanillaEnchantments.getOrDefault(DURABILITY, -1);
+        final int leftUnbreakingLevel = leftVanillaEnchantments.getOrDefault(UNBREAKING, -1);
+        final int rightUnbreakingLevel = rightVanillaEnchantments.getOrDefault(UNBREAKING, -1);
 
         final EnchantmentPool pool = new EnchantmentPool(oldOutItem, worldConfiguration.getMaxZenchantments());
         pool.addAll(leftZenchantments);
@@ -212,21 +224,16 @@ public class AnvilMergeListener implements Listener {
         final List<String> outLore = newOutMeta.hasLore() ? requireNonNull(newOutMeta.getLore()) : new ArrayList<>();
         outLore.addAll(leftNonEnchantLore);
 
-        if (leftUnbreakingLevel < 1
-            && rightUnbreakingLevel < 1
-        ) {
-            if (oldOutItem.getType() == ENCHANTED_BOOK) {
-                ((EnchantmentStorageMeta) newOutMeta).removeStoredEnchant(DURABILITY);
-            } else {
-                newOutMeta.removeEnchant(DURABILITY);
-            }
-            newOutMeta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
-        }
+//        if (leftUnbreakingLevel == 0 && rightUnbreakingLevel == 1 && requireNonNull(rightItem.getItemMeta()).hasItemFlag(ItemFlag.HIDE_ENCHANTS)
+//        ) {
+//            newOutMeta.removeEnchant(UNBREAKING);
+//            newOutMeta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
+//        }
 
         if (rightItem.getType() == ENCHANTED_BOOK && !anyZenchantmentsAdded) {
             Map<Enchantment, Integer> prematureEnchants = WorldInteractionUtil.getPrematureEnchantments(newOutMeta);
             if (prematureEnchants == null || prematureEnchants.equals(leftVanillaEnchantments)) {
-                return new ItemStack(AIR);
+                return new ItemStack(Material.DIAMOND);
             }
         }
 
@@ -267,7 +274,6 @@ public class AnvilMergeListener implements Listener {
             if (this.itemStack.getType() != ENCHANTED_BOOK && !zenchantment.isValidMaterial(this.itemStack)) {
                 return false;
             }
-
             for (final Zenchantment enchantment : this.enchantmentPool.keySet()) {
                 if (zenchantment.getConflicting().contains(enchantment.getClass())) {
                     return false;

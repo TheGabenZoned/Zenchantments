@@ -1,6 +1,5 @@
 package zedly.zenchantments;
 
-import net.minecraft.util.Tuple;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 
@@ -164,7 +163,8 @@ public final class MaterialList extends AbstractList<Material> {
         GREEN_CARPET,
         RED_CARPET,
         BLACK_CARPET,
-        MOSS_CARPET
+        MOSS_CARPET,
+        PALE_MOSS_CARPET
     );
 
     public static final MaterialList STAINED_GLASS = new MaterialList(
@@ -183,7 +183,8 @@ public final class MaterialList extends AbstractList<Material> {
         BROWN_STAINED_GLASS,
         GREEN_STAINED_GLASS,
         RED_STAINED_GLASS,
-        BLACK_STAINED_GLASS
+        BLACK_STAINED_GLASS,
+        TINTED_GLASS
     );
 
     public static final MaterialList STAINED_GLASS_PANES = new MaterialList(
@@ -233,7 +234,10 @@ public final class MaterialList extends AbstractList<Material> {
         JUNGLE_BUTTON,
         CRIMSON_BUTTON,
         WARPED_BUTTON,
-        MANGROVE_BUTTON
+        MANGROVE_BUTTON,
+        CHERRY_BUTTON,
+        PALE_OAK_BUTTON,
+        BAMBOO_BUTTON
     );
 
     public static final MaterialList WOODEN_DOORS = new MaterialList(
@@ -245,7 +249,10 @@ public final class MaterialList extends AbstractList<Material> {
         JUNGLE_DOOR,
         CRIMSON_DOOR,
         WARPED_DOOR,
-        MANGROVE_DOOR
+        MANGROVE_DOOR,
+        CHERRY_DOOR,
+        PALE_OAK_DOOR,
+        BAMBOO_DOOR
     );
 
     public static final MaterialList WOODEN_FENCES = new MaterialList(
@@ -257,7 +264,10 @@ public final class MaterialList extends AbstractList<Material> {
         JUNGLE_FENCE,
         CRIMSON_FENCE,
         WARPED_FENCE,
-        MANGROVE_FENCE
+        MANGROVE_FENCE,
+        CHERRY_FENCE,
+        PALE_OAK_FENCE,
+        BAMBOO_FENCE
     );
 
     public static final MaterialList FENCE_GATES = new MaterialList(
@@ -269,7 +279,10 @@ public final class MaterialList extends AbstractList<Material> {
         JUNGLE_FENCE_GATE,
         CRIMSON_FENCE_GATE,
         WARPED_FENCE_GATE,
-        MANGROVE_FENCE_GATE
+        MANGROVE_FENCE_GATE,
+        CHERRY_FENCE_GATE,
+        PALE_OAK_FENCE_GATE,
+        BAMBOO_FENCE_GATE
     );
 
     public static final MaterialList LEAVES = new MaterialList(
@@ -281,7 +294,9 @@ public final class MaterialList extends AbstractList<Material> {
         JUNGLE_LEAVES,
         AZALEA_LEAVES,
         FLOWERING_AZALEA_LEAVES,
-        MANGROVE_LEAVES
+        MANGROVE_LEAVES,
+        CHERRY_LEAVES,
+        PALE_OAK_LEAVES
     );
 
     public static final MaterialList LOGS = new MaterialList(
@@ -295,7 +310,10 @@ public final class MaterialList extends AbstractList<Material> {
         WARPED_STEM,
         CRIMSON_HYPHAE,
         WARPED_HYPHAE,
-        MANGROVE_LOG
+        MANGROVE_LOG,
+        CHERRY_LOG,
+        PALE_OAK_LOG,
+        BAMBOO_BLOCK
     );
 
     public static final MaterialList WOODEN_PLANKS = new MaterialList(
@@ -307,7 +325,11 @@ public final class MaterialList extends AbstractList<Material> {
         JUNGLE_PLANKS,
         CRIMSON_PLANKS,
         WARPED_PLANKS,
-        MANGROVE_PLANKS
+        MANGROVE_PLANKS,
+        CHERRY_PLANKS,
+        PALE_OAK_PLANKS,
+        BAMBOO_PLANKS,
+        BAMBOO_MOSAIC
     );
 
     public static final MaterialList WOODEN_PRESSURE_PLATES = new MaterialList(
@@ -319,7 +341,10 @@ public final class MaterialList extends AbstractList<Material> {
         JUNGLE_PRESSURE_PLATE,
         CRIMSON_PRESSURE_PLATE,
         WARPED_PRESSURE_PLATE,
-        MANGROVE_PRESSURE_PLATE
+        MANGROVE_PRESSURE_PLATE,
+        CHERRY_PRESSURE_PLATE,
+        PALE_OAK_PRESSURE_PLATE,
+        BAMBOO_PRESSURE_PLATE
     );
 
     public static final MaterialList SAPLINGS = new MaterialList(
@@ -331,7 +356,9 @@ public final class MaterialList extends AbstractList<Material> {
         JUNGLE_SAPLING,
         AZALEA,
         FLOWERING_AZALEA,
-        MANGROVE_PROPAGULE
+        MANGROVE_PROPAGULE,
+        PALE_OAK_SAPLING,
+        CHERRY_SAPLING
     );
 
     public static final MaterialList WOODEN_SLABS = new MaterialList(
@@ -343,7 +370,11 @@ public final class MaterialList extends AbstractList<Material> {
         JUNGLE_SLAB,
         CRIMSON_SLAB,
         WARPED_SLAB,
-        MANGROVE_SLAB
+        MANGROVE_SLAB,
+        CHERRY_SLAB,
+        PALE_OAK_SLAB,
+        BAMBOO_SLAB,
+        BAMBOO_MOSAIC_SLAB
     );
 
     public static final MaterialList WOODEN_STAIRS = new MaterialList(
@@ -355,7 +386,11 @@ public final class MaterialList extends AbstractList<Material> {
         JUNGLE_STAIRS,
         CRIMSON_STAIRS,
         WARPED_STAIRS,
-        MANGROVE_STAIRS
+        MANGROVE_STAIRS,
+        CHERRY_STAIRS,
+        PALE_OAK_STAIRS,
+        BAMBOO_STAIRS,
+        BAMBOO_MOSAIC_STAIRS
     );
 
     public static final MaterialList WOODEN_TRAPDOORS = new MaterialList(
@@ -367,7 +402,10 @@ public final class MaterialList extends AbstractList<Material> {
         JUNGLE_TRAPDOOR,
         CRIMSON_TRAPDOOR,
         WARPED_TRAPDOOR,
-        MANGROVE_TRAPDOOR
+        MANGROVE_TRAPDOOR,
+        CHERRY_TRAPDOOR,
+        PALE_OAK_TRAPDOOR,
+        BAMBOO_TRAPDOOR
     );
 
     public static final MaterialList WOOD = new MaterialList(
@@ -379,7 +417,9 @@ public final class MaterialList extends AbstractList<Material> {
         JUNGLE_WOOD,
         CRIMSON_HYPHAE,
         WARPED_HYPHAE,
-        MANGROVE_WOOD
+        MANGROVE_WOOD,
+        PALE_OAK_WOOD,
+        CHERRY_WOOD
     );
 
     public static final MaterialList STRIPPED_LOGS = new MaterialList(
@@ -391,7 +431,10 @@ public final class MaterialList extends AbstractList<Material> {
         STRIPPED_JUNGLE_LOG,
         STRIPPED_CRIMSON_STEM,
         STRIPPED_WARPED_STEM,
-        STRIPPED_MANGROVE_LOG
+        STRIPPED_MANGROVE_LOG,
+        STRIPPED_CHERRY_LOG,
+        STRIPPED_PALE_OAK_LOG,
+        STRIPPED_BAMBOO_BLOCK
     );
 
     public static final MaterialList STRIPPED_WOOD = new MaterialList(
@@ -403,7 +446,9 @@ public final class MaterialList extends AbstractList<Material> {
         STRIPPED_JUNGLE_WOOD,
         STRIPPED_CRIMSON_HYPHAE,
         STRIPPED_WARPED_HYPHAE,
-        STRIPPED_MANGROVE_WOOD
+        STRIPPED_MANGROVE_WOOD,
+        STRIPPED_CHERRY_WOOD,
+        STRIPPED_PALE_OAK_WOOD
     );
 
     public static final MaterialList DEADLY_PLANTS = new MaterialList(WITHER_ROSE);
@@ -419,7 +464,13 @@ public final class MaterialList extends AbstractList<Material> {
         WHITE_TULIP,
         PINK_TULIP,
         OXEYE_DAISY,
-        LILY_OF_THE_VALLEY
+        LILY_OF_THE_VALLEY,
+        CLOSED_EYEBLOSSOM,
+        OPEN_EYEBLOSSOM,
+        PINK_PETALS,
+        TORCHFLOWER,
+        WILDFLOWERS,
+        CACTUS_FLOWER
     );
 
     public static final MaterialList LARGE_FLOWERS = new MaterialList(
@@ -428,7 +479,8 @@ public final class MaterialList extends AbstractList<Material> {
         TALL_GRASS,
         LARGE_FERN,
         ROSE_BUSH,
-        PEONY
+        PEONY,
+        PITCHER_PLANT
     );
 
     public static final MaterialList GROWN_CROPS = new MaterialList(
@@ -508,9 +560,9 @@ public final class MaterialList extends AbstractList<Material> {
 
     public static final MaterialList CHORUS_PLANTS = new MaterialList(CHORUS_PLANT, CHORUS_FLOWER);
 
-    public static final MaterialList SHORT_GRASS = new MaterialList(GRASS, DEAD_BUSH, FERN);
+    public static final MaterialList SHORT_GRASS = new MaterialList(Material.SHORT_GRASS, DEAD_BUSH, FERN);
 
-    public static final MaterialList BUTTONS = new MaterialList(new Material[] { STONE_BUTTON }, WOODEN_BUTTONS);
+    public static final MaterialList BUTTONS = new MaterialList(new Material[] { STONE_BUTTON, POLISHED_BLACKSTONE_BUTTON }, WOODEN_BUTTONS);
 
     public static final MaterialList DOORS = new MaterialList(new Material[] { IRON_DOOR }, WOODEN_DOORS);
 
@@ -555,7 +607,8 @@ public final class MaterialList extends AbstractList<Material> {
         DEEPSLATE_GOLD_ORE,
         DEEPSLATE_COPPER_ORE,
         DEEPSLATE_DIAMOND_ORE,
-        DEEPSLATE_LAPIS_ORE
+        DEEPSLATE_LAPIS_ORE,
+        DEEPSLATE_EMERALD_ORE
     );
 
     public static final MaterialList NETHER_ORES = new MaterialList(
@@ -578,7 +631,7 @@ public final class MaterialList extends AbstractList<Material> {
         NETHER_ORES
     );
 
-    public static final MaterialList SANDS = new MaterialList(Material.SAND, RED_SAND);
+    public static final MaterialList SANDS = new MaterialList(Material.SAND, RED_SAND, SUSPICIOUS_SAND);
 
     public static final MaterialList ICE = new MaterialList(Material.ICE, BLUE_ICE, PACKED_ICE);
 
@@ -708,7 +761,8 @@ public final class MaterialList extends AbstractList<Material> {
             STRUCTURE_BLOCK,
             WATER,
             PISTON_HEAD,
-            MOVING_PISTON
+            MOVING_PISTON,
+            REINFORCED_DEEPSLATE
         },
         AIR,
         COMMAND_BLOCKS
@@ -809,7 +863,7 @@ public final class MaterialList extends AbstractList<Material> {
     public static final MaterialList LUMBER_WHITELIST = new MaterialList(
         new Material[] {
             Material.DIRT,
-            GRASS,
+            Material.SHORT_GRASS,
             DEAD_BUSH,
             VINE,
             SNOW,
@@ -869,30 +923,30 @@ public final class MaterialList extends AbstractList<Material> {
         DEADLY_PLANTS
     );
 
-    public static final HashMap<Material, Tuple<Material, Double>> FIRE_SMELT_MAP = new HashMap<>();
+    public static final HashMap<Material, String> FIRE_SMELT_MAP = new HashMap<>();
 
     static {
-        FIRE_SMELT_MAP.put(STONE, new Tuple<Material, Double>(STONE, 0.1));
-        FIRE_SMELT_MAP.put(DIORITE, new Tuple<Material, Double>(POLISHED_DIORITE, 0.1));
-        FIRE_SMELT_MAP.put(ANDESITE, new Tuple<Material, Double>(POLISHED_ANDESITE, 0.1));
-        FIRE_SMELT_MAP.put(GRANITE, new Tuple<Material, Double>(POLISHED_GRANITE, 0.1));
-        FIRE_SMELT_MAP.put(COBBLESTONE, new Tuple<Material, Double>(STONE, 0.5));
-        FIRE_SMELT_MAP.put(COBBLED_DEEPSLATE, new Tuple<Material, Double>(DEEPSLATE, 0.1));
-        FIRE_SMELT_MAP.put(Material.SANDSTONE, new Tuple<Material, Double>(SMOOTH_SANDSTONE, 0.1));
-        FIRE_SMELT_MAP.put(RED_SANDSTONE, new Tuple<Material, Double>(SMOOTH_RED_SANDSTONE, 0.1));
-        FIRE_SMELT_MAP.put(BASALT, new Tuple<Material, Double>(SMOOTH_BASALT, 0.1));
-        FIRE_SMELT_MAP.put(NETHERRACK, new Tuple<Material, Double>(NETHER_BRICK, 0.1));
-        FIRE_SMELT_MAP.put(RAW_IRON, new Tuple<Material, Double>(IRON_INGOT, 0.7));
-        FIRE_SMELT_MAP.put(RAW_GOLD, new Tuple<Material, Double>(GOLD_INGOT, 1.0));
-        FIRE_SMELT_MAP.put(RAW_COPPER, new Tuple<Material, Double>(COPPER_INGOT, 0.7));
-        FIRE_SMELT_MAP.put(ANCIENT_DEBRIS, new Tuple<Material, Double>(NETHERITE_SCRAP, 2.0));
-        FIRE_SMELT_MAP.put(QUARTZ_BLOCK, new Tuple<Material, Double>(SMOOTH_QUARTZ, 0.1));
-        FIRE_SMELT_MAP.put(CLAY_BALL, new Tuple<Material, Double>(BRICK, 0.3));
-        FIRE_SMELT_MAP.put(CLAY, new Tuple<Material, Double>(Material.TERRACOTTA, 0.35));
-        FIRE_SMELT_MAP.put(Material.CACTUS, new Tuple<Material, Double>(GREEN_DYE, 1.0));
-        FIRE_SMELT_MAP.put(CHORUS_FRUIT, new Tuple<Material, Double>(POPPED_CHORUS_FRUIT, 0.1));
+        FIRE_SMELT_MAP.put(STONE, "STONE|0.1");
+        FIRE_SMELT_MAP.put(DIORITE, "POLISHED_DIORITE|0.1");
+        FIRE_SMELT_MAP.put(ANDESITE, "POLISHED_ANDESITE|0.1");
+        FIRE_SMELT_MAP.put(GRANITE, "POLISHED_GRANITE|0.1");
+        FIRE_SMELT_MAP.put(COBBLESTONE, "STONE|0.5");
+        FIRE_SMELT_MAP.put(COBBLED_DEEPSLATE, "DEEPSLATE|0.1");
+        FIRE_SMELT_MAP.put(Material.SANDSTONE, "SMOOTH_SANDSTONE|0.1");
+        FIRE_SMELT_MAP.put(RED_SANDSTONE, "SMOOTH_RED_SANDSTONE|0.1");
+        FIRE_SMELT_MAP.put(BASALT, "SMOOTH_BASALT|0.1");
+        FIRE_SMELT_MAP.put(NETHERRACK, "NETHER_BRICK|0.1");
+        FIRE_SMELT_MAP.put(RAW_IRON, "IRON_INGOT|0.7");
+        FIRE_SMELT_MAP.put(RAW_GOLD, "GOLD_INGOT|1.0");
+        FIRE_SMELT_MAP.put(RAW_COPPER,"COPPER_INGOT|0.7");
+        FIRE_SMELT_MAP.put(ANCIENT_DEBRIS, "NETHERITE_SCRAP|2.0");
+        FIRE_SMELT_MAP.put(QUARTZ_BLOCK, "SMOOTH_QUARTZ|0.1");
+        FIRE_SMELT_MAP.put(CLAY_BALL, "BRICK|0.3");
+        FIRE_SMELT_MAP.put(CLAY, "Material.TERRACOTTA|0.35");
+        FIRE_SMELT_MAP.put(Material.CACTUS, "GREEN_DYE|1.0");
+        FIRE_SMELT_MAP.put(CHORUS_FRUIT, "POPPED_CHORUS_FRUIT|0.1");
         LOGS.stream().forEach((m) -> {
-            FIRE_SMELT_MAP.put(m, new Tuple<Material, Double>(CHARCOAL, 0.15));
+            FIRE_SMELT_MAP.put(m, "CHARCOAL|0.15");
         });
     }
 

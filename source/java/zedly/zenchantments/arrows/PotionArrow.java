@@ -17,18 +17,18 @@ import static org.bukkit.potion.PotionEffectType.*;
 public final class PotionArrow extends ZenchantedArrow {
     private static final PotionEffectType[] POTION_EFFECT_TYPES = {
         ABSORPTION,
-        DAMAGE_RESISTANCE,
+        RESISTANCE,
         FIRE_RESISTANCE,
         SPEED,
-        JUMP,
+        JUMP_BOOST,
         INVISIBILITY,
-        INCREASE_DAMAGE,
+        STRENGTH,
         HEALTH_BOOST,
-        HEAL,
+        INSTANT_HEALTH,
         REGENERATION,
         NIGHT_VISION,
         SATURATION,
-        FAST_DIGGING,
+        HASTE,
         WATER_BREATHING,
         DOLPHINS_GRACE
     };

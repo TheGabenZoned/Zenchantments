@@ -4,10 +4,10 @@ import org.bukkit.Particle;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import zedly.zenchantments.*;
 
-import static org.bukkit.potion.PotionEffectType.SLOW;
 
 @AZenchantment(runInSlots = Slots.MAIN_HAND, conflicting = {})
 public final class IceAspect extends Zenchantment {
@@ -15,7 +15,7 @@ public final class IceAspect extends Zenchantment {
     public boolean onEntityHit(final @NotNull EntityDamageByEntityEvent event, final int level, final EquipmentSlot slot) {
         Utilities.addPotionEffect(
             (LivingEntity) event.getEntity(),
-            SLOW,
+            PotionEffectType.SLOWNESS,
             (int) Math.round(40 + level * this.getPower() * 40),
             (int) Math.round(this.getPower() * level * 2)
         );

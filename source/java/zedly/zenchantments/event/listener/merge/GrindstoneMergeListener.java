@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.GrindstoneInventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +19,7 @@ import zedly.zenchantments.configuration.WorldConfigurationProvider;
 
 import java.util.Set;
 
-import static org.bukkit.enchantments.Enchantment.DURABILITY;
+import static org.bukkit.enchantments.Enchantment.UNBREAKING;
 import static org.bukkit.event.EventPriority.MONITOR;
 
 public class GrindstoneMergeListener implements Listener {
@@ -41,17 +42,18 @@ public class GrindstoneMergeListener implements Listener {
             this.removeOutputEnchants(inventory, world);
         } else {
             if (event.getCurrentItem() != null) {
-                final ItemMeta itemMeta = (ItemMeta) event.getCurrentItem().getItemMeta();
-                if (itemMeta != null && itemMeta.hasEnchants() && itemMeta.getEnchants().containsKey(DURABILITY)
-                    && itemMeta.getEnchants().get(DURABILITY) == 0
+                final ItemMeta itemMeta = event.getCurrentItem().getItemMeta();
+                if (itemMeta != null && itemMeta.hasEnchants() && itemMeta.getEnchants().containsKey(UNBREAKING)
+                    && itemMeta.getEnchants().get(UNBREAKING) == 1
                 ) {
-                    itemMeta.removeEnchant(DURABILITY);
+                    itemMeta.removeEnchant(UNBREAKING);
+                    itemMeta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
                     event.getCurrentItem().setItemMeta(itemMeta);
                 }
             }
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(ZenchantmentsPlugin.getInstance(), () -> {
-                ensureToolIsGrindable((GrindstoneInventory) event.getInventory(), 0);
-                ensureToolIsGrindable((GrindstoneInventory) event.getInventory(), 1);
+                ensureToolIsGrindable((GrindstoneInventory) event.getInventory(), 0, world);
+                ensureToolIsGrindable((GrindstoneInventory) event.getInventory(), 1, world);
             }, 0);
             this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(
                 this.plugin,
@@ -61,15 +63,26 @@ public class GrindstoneMergeListener implements Listener {
         }
     }
 
-    private void ensureToolIsGrindable(final @NotNull GrindstoneInventory inventory, int slot) {
+    private void ensureToolIsGrindable(final @NotNull GrindstoneInventory inventory, int slot, World world) {
         ItemStack item = inventory.getItem(slot);
         if (item == null) {
             return;
         }
-        final ItemMeta itemMeta = (ItemMeta) item.getItemMeta();
+        final ItemMeta itemMeta = item.getItemMeta();
 
-        if (itemMeta != null && (!itemMeta.hasEnchants() || !itemMeta.getEnchants().containsKey(DURABILITY))) {
-            itemMeta.addEnchant(DURABILITY, 0, true);
+        final WorldConfiguration worldConfiguration = WorldConfigurationProvider.getInstance().getConfigurationForWorld(world);
+        final Set<Zenchantment> zenchantments = Zenchantment.getZenchantmentsOnItemStack(
+            item,
+            worldConfiguration
+        ).keySet();
+
+        if (zenchantments.isEmpty()) {
+            return;
+        }
+
+        if (itemMeta != null && (!itemMeta.hasEnchants() || !itemMeta.getEnchants().containsKey(UNBREAKING))) {
+            itemMeta.addEnchant(UNBREAKING, 1, true);
+            itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             item.setItemMeta(itemMeta);
             inventory.setItem(slot, item);
         }

@@ -18,8 +18,7 @@ import zedly.zenchantments.task.Frequency;
 
 import java.util.*;
 
-import static org.bukkit.potion.PotionEffectType.CONFUSION;
-import static org.bukkit.potion.PotionEffectType.HUNGER;
+import static org.bukkit.potion.PotionEffectType.*;
 
 @AZenchantment(runInSlots = Slots.HANDS, conflicting = {})
 public final class Toxic extends Zenchantment {
@@ -35,7 +34,7 @@ public final class Toxic extends Zenchantment {
 
         final int value = (int) Math.round(level * this.getPower());
 
-        Utilities.addPotionEffect((LivingEntity) event.getEntity(), CONFUSION, 80 + 60 * value, 4);
+        Utilities.addPotionEffect((LivingEntity) event.getEntity(), NAUSEA, 80 + 60 * value, 4);
         Utilities.addPotionEffect((LivingEntity) event.getEntity(), HUNGER, 40 + 60 * value, 4);
 
         if (!(event.getEntity() instanceof Player)) {

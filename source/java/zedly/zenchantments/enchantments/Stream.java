@@ -20,8 +20,8 @@ public final class Stream extends Zenchantment {
     private static final Particle[] TRAIL_TYPES = {
         Particle.CLOUD,
         Particle.CRIT,
-        Particle.VILLAGER_HAPPY,
-        Particle.REDSTONE,
+        Particle.HAPPY_VILLAGER,
+        Particle.DUST,
         Particle.HEART
     };
 
@@ -112,7 +112,7 @@ public final class Stream extends Zenchantment {
             case 3:
                 final ThreadLocalRandom random = ThreadLocalRandom.current();
                 player.getWorld().spawnParticle(
-                    Particle.REDSTONE,
+                    Particle.DUST,
                     player.getLocation(),
                     1,
                     new Particle.DustOptions(Color.fromRGB(random.nextInt(256), random.nextInt(256), random.nextInt(256)), 1.0f)

@@ -26,8 +26,12 @@ public final class SiphonArrow extends ZenchantedArrow {
                 return;
             }
             final Player player = (Player) shooter;
+            System.out.println(player);
             int difference = (int) Math.round(0.17 * this.getLevel() * this.getPower() * event.getFinalDamage());
-            player.setHealth(Math.min(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue(), player.getHealth() + difference));
+            System.out.println(difference);
+            double health = player.getHealth() + difference;
+
+            player.setHealth(Math.min(player.getAttribute(Attribute.MAX_HEALTH).getValue(), player.getHealth() + difference));
             this.die(true);
         }
 
