@@ -36,8 +36,6 @@ public final class Mow extends Zenchantment {
                     DyeColor color = sheep.getColor();
                     Material woolType = Material.getMaterial(color.name() + "_WOOL");
                     for (String item : Objects.requireNonNull(Objects.requireNonNull(event.getItem().getItemMeta()).getLore()).stream().toList() ) {
-                            System.out.println(item.substring(2).trim());
-                            System.out.println(item.substring(2).trim().equalsIgnoreCase("Rainbow"));
                             if (item.substring(2).trim().equalsIgnoreCase("Rainbow")) {
                                 woolType = MaterialList.WOOL.getRandom();
                             }

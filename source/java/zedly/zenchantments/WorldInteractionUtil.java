@@ -11,7 +11,6 @@ import org.bukkit.block.data.type.Leaves;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.*;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.EntityBlockFormEvent;
@@ -31,6 +30,7 @@ import zedly.zenchantments.event.ZenBlockPlaceEvent;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
 
 import static org.bukkit.Material.BAMBOO;
 
@@ -408,7 +408,7 @@ public class WorldInteractionUtil {
             Map enchantments = (Map) (f.get(meta));
             return enchantments;
         } catch (NoSuchFieldException | IllegalAccessException ex) {
-            System.out.println("Unable to handle premature ItemMeta " + meta.getClass().getName());
+            Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("ZenchantmentsPlugin")).getLogger().log(Level.SEVERE, "Unable to handle premature ItemMeta " + meta.getClass().getName());
         }
         return null;
     }
