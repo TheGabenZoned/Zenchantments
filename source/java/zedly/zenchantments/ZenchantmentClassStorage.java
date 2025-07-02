@@ -14,6 +14,7 @@ public class ZenchantmentClassStorage {
         Blizzard.class,
         Bounce.class,
         Burst.class,
+        Canvas.class,
         Combustion.class,
         Caffeine.class,
         Chitin.class,

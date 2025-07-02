@@ -85,6 +85,13 @@ enchantments:
               max-level: 3
               cooldown: 0
               power: 1.0
+      - Canvas:
+              probability: 4.0
+              tools: Brush
+              name: Canvas
+              max-level: 1
+              cooldown: 0
+              power: 1.0
       - Chitin:
               probability: 5.0
               tools: Elytra

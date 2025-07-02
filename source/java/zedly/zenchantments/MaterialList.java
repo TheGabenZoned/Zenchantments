@@ -50,7 +50,7 @@ public final class MaterialList extends AbstractList<Material> {
         BLACK_WOOL
     );
 
-    public static final MaterialList SHULKER_BOXES = new MaterialList(
+    public static final MaterialList DYEABLE_SHULKER_BOXES = new MaterialList(
         WHITE_SHULKER_BOX,
         ORANGE_SHULKER_BOX,
         MAGENTA_SHULKER_BOX,
@@ -66,8 +66,14 @@ public final class MaterialList extends AbstractList<Material> {
         BROWN_SHULKER_BOX,
         GREEN_SHULKER_BOX,
         RED_SHULKER_BOX,
-        BLACK_SHULKER_BOX,
-        SHULKER_BOX
+        BLACK_SHULKER_BOX
+    );
+
+    public static final MaterialList SHULKER_BOXES = new MaterialList(
+        new Material[]{
+            SHULKER_BOX
+        },
+        DYEABLE_SHULKER_BOXES
     );
 
     public static final MaterialList CONCRETE_POWDER = new MaterialList(
@@ -146,7 +152,7 @@ public final class MaterialList extends AbstractList<Material> {
         BLACK_TERRACOTTA
     );
 
-    public static final MaterialList CARPETS = new MaterialList(
+    public static final MaterialList DYEABLE_CARPETS = new MaterialList(
         WHITE_CARPET,
         ORANGE_CARPET,
         MAGENTA_CARPET,
@@ -162,12 +168,18 @@ public final class MaterialList extends AbstractList<Material> {
         BROWN_CARPET,
         GREEN_CARPET,
         RED_CARPET,
-        BLACK_CARPET,
-        MOSS_CARPET,
-        PALE_MOSS_CARPET
+        BLACK_CARPET
     );
 
-    public static final MaterialList STAINED_GLASS = new MaterialList(
+    public static final MaterialList CARPETS = new MaterialList(
+        new Material[]{
+            MOSS_CARPET,
+            PALE_MOSS_CARPET
+        },
+        DYEABLE_CARPETS
+    );
+
+    public static final MaterialList DYEABLE_STAINED_GLASS = new MaterialList(
         WHITE_STAINED_GLASS,
         ORANGE_STAINED_GLASS,
         MAGENTA_STAINED_GLASS,
@@ -183,8 +195,14 @@ public final class MaterialList extends AbstractList<Material> {
         BROWN_STAINED_GLASS,
         GREEN_STAINED_GLASS,
         RED_STAINED_GLASS,
-        BLACK_STAINED_GLASS,
-        TINTED_GLASS
+        BLACK_STAINED_GLASS
+    );
+
+    public static final MaterialList STAINED_GLASS = new MaterialList(
+        new Material[]{
+            TINTED_GLASS
+        },
+        DYEABLE_STAINED_GLASS
     );
 
     public static final MaterialList STAINED_GLASS_PANES = new MaterialList(
@@ -207,7 +225,7 @@ public final class MaterialList extends AbstractList<Material> {
     );
 
     public static final MaterialList DYES = new MaterialList(
-        BONE_MEAL,
+        WHITE_DYE,
         ORANGE_DYE,
         MAGENTA_DYE,
         LIGHT_BLUE_DYE,
@@ -218,11 +236,11 @@ public final class MaterialList extends AbstractList<Material> {
         LIGHT_GRAY_DYE,
         CYAN_DYE,
         PURPLE_DYE,
-        LAPIS_LAZULI,
-        COCOA_BEANS,
+        BLUE_DYE,
+        BROWN_DYE,
         GREEN_DYE,
         RED_DYE,
-        INK_SAC
+        BLACK_DYE
     );
 
     public static final MaterialList WOODEN_BUTTONS = new MaterialList(

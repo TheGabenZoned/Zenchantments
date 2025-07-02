@@ -456,4 +456,16 @@ public class WorldInteractionUtil {
         FallingBlock fb = world.spawnFallingBlock(block.getLocation().add(0.5,0,0.5), blockData);
         fb.setMetadata("temporary",new FixedMetadataValue(ZenchantmentsPlugin.getInstance(),"temporary"));
     }
+
+    public static String isDyeableBlock(Material material) {
+        if (MaterialList.DYEABLE_CARPETS.contains(material)) return "carpet";
+        if (MaterialList.DYEABLE_STAINED_GLASS.contains(material)) return "stained_glass";
+        if (MaterialList.STAINED_GLASS_PANES.contains(material)) return "stained_glass_pane";
+        if (MaterialList.WOOL.contains(material)) return "wool";
+        if (MaterialList.CONCRETE.contains(material)) return "concrete";
+        if (MaterialList.CONCRETE_POWDER.contains(material)) return "concrete_powder";
+        if (MaterialList.TERRACOTTA.contains(material)) return "terracotta";
+        if (MaterialList.GLAZED_TERRACOTTA.contains(material)) return "glazed_terracotta";
+        return null;
+    }
 }

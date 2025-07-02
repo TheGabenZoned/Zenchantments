@@ -545,4 +545,48 @@ public final class Utilities {
             flipValidSearch
         );
     }
+
+    public static Material getMaterialFromDyeAndBase(Material block, Material dye) {
+        String dyeName = getDyeName(dye);
+        if (dyeName == null) return null;
+
+        String base = getMaterialBase(block);
+        if (base == null) return null;
+
+        return Material.valueOf(dyeName + "_" + base);
+    }
+
+    public static String getDyeName(Material dye) {
+        if (dye.name().equalsIgnoreCase("WHITE_DYE")) return "WHITE";
+        if (dye.name().equalsIgnoreCase("LIGHT_GRAY_DYE")) return "LIGHT_GRAY";
+        if (dye.name().equalsIgnoreCase("GRAY_DYE")) return "GRAY";
+        if (dye.name().equalsIgnoreCase("BLACK_DYE")) return "BLACK";
+        if (dye.name().equalsIgnoreCase("BROWN_DYE")) return "BROWN";
+        if (dye.name().equalsIgnoreCase("RED_DYE")) return "RED";
+        if (dye.name().equalsIgnoreCase("ORANGE_DYE")) return "ORANGE";
+        if (dye.name().equalsIgnoreCase("YELLOW_DYE")) return "YELLOW";
+        if (dye.name().equalsIgnoreCase("LIME_DYE")) return "LIME";
+        if (dye.name().equalsIgnoreCase("GREEN_DYE")) return "GREEN";
+        if (dye.name().equalsIgnoreCase("CYAN_DYE")) return "CYAN";
+        if (dye.name().equalsIgnoreCase("LIGHT_BLUE_DYE")) return "LIGHT_BLUE";
+        if (dye.name().equalsIgnoreCase("BLUE_DYE")) return "BLUE";
+        if (dye.name().equalsIgnoreCase("PURPLE_DYE")) return "PURPLE";
+        if (dye.name().equalsIgnoreCase("MAGENTA_DYE")) return "MAGENTA";
+        if (dye.name().equalsIgnoreCase("PINK_DYE")) return "PINK";
+
+        return null;
+    }
+
+    public static String getMaterialBase(Material material) {
+        if (MaterialList.DYEABLE_CARPETS.contains(material)) return "CARPET";
+        if (MaterialList.DYEABLE_STAINED_GLASS.contains(material)) return "STAINED_GLASS";
+        if (MaterialList.STAINED_GLASS_PANES.contains(material)) return "STAINED_GLASS_PANE";
+        if (MaterialList.WOOL.contains(material)) return "WOOL";
+        if (MaterialList.CONCRETE.contains(material)) return "CONCRETE";
+        if (MaterialList.CONCRETE_POWDER.contains(material)) return "CONCRETE_POWDER";
+        if (MaterialList.TERRACOTTA.contains(material)) return "TERRACOTTA";
+        if (MaterialList.GLAZED_TERRACOTTA.contains(material)) return "GLAZED_TERRACOTTA";
+
+        return null;
+    }
 }
