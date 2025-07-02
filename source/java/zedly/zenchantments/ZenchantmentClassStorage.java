@@ -60,6 +60,7 @@ public class ZenchantmentClassStorage {
         Reaper.class,
         Reveal.class,
         Saturation.class,
+        Scraper.class,
         ShortCast.class,
         Shred.class,
         Singularity.class,

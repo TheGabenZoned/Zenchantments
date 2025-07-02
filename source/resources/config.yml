@@ -379,6 +379,13 @@ enchantments:
               max-level: 3
               cooldown: 0
               power: 1.0
+      - Scraper:
+              probability: 4.0
+              tools: Brush
+              name: Scraper
+              max-level: 1
+              cooldown: 0
+              power: 1.0
       - ShortCast:
               probability: 4.0
               tools: Rod

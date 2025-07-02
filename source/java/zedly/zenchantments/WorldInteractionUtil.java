@@ -6,8 +6,11 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.type.Bamboo;
 import org.bukkit.block.data.type.Leaves;
+import org.bukkit.block.data.type.Slab;
+import org.bukkit.block.data.type.Stairs;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
 import org.bukkit.enchantments.Enchantment;
@@ -455,5 +458,30 @@ public class WorldInteractionUtil {
         BlockData blockData = block.getBlockData();
         FallingBlock fb = world.spawnFallingBlock(block.getLocation().add(0.5,0,0.5), blockData);
         fb.setMetadata("temporary",new FixedMetadataValue(ZenchantmentsPlugin.getInstance(),"temporary"));
+    }
+
+    public static void replaceBlockPreservingOrientation(Block block, Material newMaterial) {
+        BlockData oldData = block.getBlockData();
+
+        block.setType(newMaterial);
+        BlockData newData = block.getBlockData();
+
+        if (oldData instanceof Directional oldDirectional && newData instanceof Directional newDirectional) {
+            newDirectional.setFacing(oldDirectional.getFacing());
+        }
+
+        if (oldData instanceof Stairs oldStairs && newData instanceof Stairs newStairs) {
+            newStairs.setFacing(oldStairs.getFacing());
+            newStairs.setHalf(oldStairs.getHalf());
+            newStairs.setShape(oldStairs.getShape());
+            newStairs.setWaterlogged(oldStairs.isWaterlogged());
+        }
+
+        if (oldData instanceof Slab oldSlab && newData instanceof Slab newSlab) {
+            newSlab.setType(oldSlab.getType());
+            newSlab.setWaterlogged(oldSlab.isWaterlogged());
+        }
+
+        block.setBlockData(newData, true);
     }
 }

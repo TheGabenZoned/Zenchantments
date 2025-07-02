@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static org.bukkit.Material.*;
+import static org.bukkit.Material.WAXED_COPPER_GRATE;
 
 public final class MaterialList extends AbstractList<Material> {
     public static final MaterialList EMPTY = new MaterialList(new Material[0]);
@@ -559,6 +560,74 @@ public final class MaterialList extends AbstractList<Material> {
         RED_MUSHROOM_BLOCK
     );
 
+    public static final MaterialList UNOXIDIZED_COPPER_BLOCKS = new MaterialList(
+        COPPER_BLOCK,
+        CHISELED_COPPER,
+        COPPER_GRATE,
+        CUT_COPPER,
+        CUT_COPPER_STAIRS,
+        CUT_COPPER_SLAB,
+        COPPER_BULB,
+        WAXED_COPPER_BLOCK,
+        WAXED_CHISELED_COPPER,
+        WAXED_COPPER_GRATE,
+        WAXED_CUT_COPPER,
+        WAXED_CUT_COPPER_STAIRS,
+        WAXED_CUT_COPPER_SLAB,
+        WAXED_COPPER_BULB
+    );
+
+    public static final MaterialList EXPOSED_COPPER_BLOCKS = new MaterialList(
+        EXPOSED_COPPER,
+        EXPOSED_CHISELED_COPPER,
+        EXPOSED_COPPER_GRATE,
+        EXPOSED_CUT_COPPER,
+        EXPOSED_CUT_COPPER_STAIRS,
+        EXPOSED_CUT_COPPER_SLAB,
+        EXPOSED_COPPER_BULB,
+        WAXED_EXPOSED_COPPER,
+        WAXED_EXPOSED_CHISELED_COPPER,
+        WAXED_EXPOSED_COPPER_GRATE,
+        WAXED_EXPOSED_CUT_COPPER,
+        WAXED_EXPOSED_CUT_COPPER_STAIRS,
+        WAXED_EXPOSED_CUT_COPPER_SLAB,
+        WAXED_EXPOSED_COPPER_BULB
+    );
+
+    public static final MaterialList WEATHERED_COPPER_BLOCKS = new MaterialList(
+        WEATHERED_COPPER,
+        WEATHERED_CHISELED_COPPER,
+        WEATHERED_COPPER_GRATE,
+        WEATHERED_CUT_COPPER,
+        WEATHERED_CUT_COPPER_STAIRS,
+        WEATHERED_CUT_COPPER_SLAB,
+        WEATHERED_COPPER_BULB,
+        WAXED_WEATHERED_COPPER,
+        WAXED_WEATHERED_CHISELED_COPPER,
+        WAXED_WEATHERED_COPPER_GRATE,
+        WAXED_WEATHERED_CUT_COPPER,
+        WAXED_WEATHERED_CUT_COPPER_STAIRS,
+        WAXED_WEATHERED_CUT_COPPER_SLAB,
+        WAXED_WEATHERED_COPPER_BULB
+    );
+
+    public static final MaterialList OXIDIZED_COPPER_BLOCKS = new MaterialList(
+        OXIDIZED_COPPER,
+        OXIDIZED_CHISELED_COPPER,
+        OXIDIZED_COPPER_GRATE,
+        OXIDIZED_CUT_COPPER,
+        OXIDIZED_CUT_COPPER_STAIRS,
+        OXIDIZED_CUT_COPPER_SLAB,
+        OXIDIZED_COPPER_BULB,
+        WAXED_OXIDIZED_COPPER,
+        WAXED_OXIDIZED_CHISELED_COPPER,
+        WAXED_OXIDIZED_COPPER_GRATE,
+        WAXED_OXIDIZED_CUT_COPPER,
+        WAXED_OXIDIZED_CUT_COPPER_STAIRS,
+        WAXED_OXIDIZED_CUT_COPPER_SLAB,
+        WAXED_OXIDIZED_COPPER_BULB
+    );
+
     public static final MaterialList CHORUS_PLANTS = new MaterialList(CHORUS_PLANT, CHORUS_FLOWER);
 
     public static final MaterialList SHORT_GRASS = new MaterialList(Material.SHORT_GRASS, DEAD_BUSH, FERN);
@@ -591,6 +660,13 @@ public final class MaterialList extends AbstractList<Material> {
             HEAVY_WEIGHTED_PRESSURE_PLATE
         },
         WOODEN_PRESSURE_PLATES
+    );
+
+    public static final MaterialList COPPER_BLOCKS = new MaterialList(
+        UNOXIDIZED_COPPER_BLOCKS,
+        EXPOSED_COPPER_BLOCKS,
+        WEATHERED_COPPER_BLOCKS,
+        OXIDIZED_COPPER_BLOCKS
     );
 
     public static final MaterialList AIR = new MaterialList(Material.AIR, CAVE_AIR, VOID_AIR);

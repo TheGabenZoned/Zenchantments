@@ -545,4 +545,31 @@ public final class Utilities {
             flipValidSearch
         );
     }
+
+    public static Material getPreviousOxidationLevel(Material material) {
+        String name = material.name();
+        String type = "";
+        String previousLevel = "";
+        String waxed = "";
+        String divider = "_";
+        if (name.contains("WAXED")) {
+            waxed = "WAXED_";
+        }
+        if (name.contains(waxed + "OXIDIZED")) {
+            previousLevel = "WEATHERED";
+            type = name.split(waxed + "OXIDIZED_")[1];
+        } else if (name.contains(waxed + "WEATHERED")) {
+            previousLevel = "EXPOSED";
+            type = name.split(waxed + "WEATHERED_")[1];
+        } else if (name.contains(waxed + "EXPOSED")) {
+            previousLevel = "";
+            type = name.split(waxed + "EXPOSED_")[1];
+            divider = "";
+        }
+        if ((waxed + previousLevel + divider + type).equalsIgnoreCase(waxed + "COPPER")) {
+            type = type + "_BLOCK";
+        }
+
+        return Material.valueOf(waxed + previousLevel + divider + type);
+    }
 }
