@@ -20,7 +20,7 @@ public enum Tool {
     ),
     SWORD(
         "Sword",
-        new Material[] { WOODEN_SWORD, STONE_SWORD, GOLDEN_SWORD, IRON_SWORD, DIAMOND_SWORD, NETHERITE_SWORD, MACE }
+        new Material[] { WOODEN_SWORD, STONE_SWORD, GOLDEN_SWORD, IRON_SWORD, DIAMOND_SWORD, NETHERITE_SWORD, MACE, WOODEN_SPEAR, STONE_SPEAR, GOLDEN_SPEAR, IRON_SPEAR, DIAMOND_SPEAR, NETHERITE_SPEAR }
     ),
     PICKAXE(
         "Pickaxe",
@@ -159,7 +159,13 @@ public enum Tool {
             Material.TRIDENT,
             Material.BRUSH,
             MACE,
-            Material.SHIELD
+            Material.SHIELD,
+            WOODEN_SPEAR,
+            STONE_SPEAR,
+            GOLDEN_SPEAR,
+            IRON_SPEAR,
+            DIAMOND_SPEAR,
+            NETHERITE_SPEAR
         }
     );
 

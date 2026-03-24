@@ -83,16 +83,21 @@ public class AnvilMergeListener implements Listener {
         ItemStack left = anvilInv.getItem(0);
         ItemStack right = anvilInv.getItem(1);
         if (left == null || right == null) return;
+        boolean removeUnbreaking;
 
         UNSTABLE_ANVIL_INVS.add(anvilInv);
 
         // Apply unbreaking 0 if necessary
         ItemStack rightItem = anvilInv.getItem(1);
+        System.out.println(rightItem);
         ItemStack rightItemUpdated = handlePossibleEnchantedBook(rightItem);
         if (rightItemUpdated != null) {
+            removeUnbreaking = rightItem.getItemMeta() != rightItemUpdated.getItemMeta();
+            System.out.println(removeUnbreaking);
             rightItem = rightItemUpdated;
             anvilInv.setItem(1, rightItem);
         } else {
+            removeUnbreaking = false;
             return;
         }
 
@@ -104,6 +109,11 @@ public class AnvilMergeListener implements Listener {
                 )
             );
             if (stack != null) {
+                if (removeUnbreaking) {
+                    ItemMeta stackMeta = stack.getItemMeta();
+                    stackMeta.removeEnchant(UNBREAKING);
+                    stack.setItemMeta(stackMeta);
+                }
                 anvilInv.setItem(2, stack);
                 event.setResult(stack);
             }
@@ -118,7 +128,7 @@ public class AnvilMergeListener implements Listener {
         }
         AnvilInventory inv = (AnvilInventory) event.getInventory();
         ItemStack rightItem = inv.getItem(1);
-        if (rightItem == null || rightItem.getType() != ENCHANTED_BOOK) {
+        if (rightItem == null) {
             return;
         }
         final ItemMeta bookMeta = rightItem.getItemMeta();
@@ -133,7 +143,7 @@ public class AnvilMergeListener implements Listener {
 
 
     private static ItemStack handlePossibleEnchantedBook(final @Nullable ItemStack item) {
-        if (item != null && item.getType() == ENCHANTED_BOOK) {
+        if (item != null) {
             final ItemMeta bookMeta = item.getItemMeta();
 
             if (!requireNonNull(bookMeta).getEnchants().containsKey(UNBREAKING)) {
