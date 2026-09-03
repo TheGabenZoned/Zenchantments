@@ -16,6 +16,8 @@ The item categories in this guide are the categories accepted by the configurati
 
 A configured probability of `0.0` disables random acquisition but does not prevent administrators from applying the enchantment manually. A probability of `-1.0` disables the enchantment completely. Maximum levels and supported categories can be changed per world in the generated world configuration file.
 
+Enabled Mace enchantments are also added as separate trades for librarian villagers. These trades use emeralds and a book, offer a random valid enchantment level, and do not replace the librarian's normal enchanted-book trades.
+
 ## Regular Enchantments
 
 | Enchantment | Max level | Applies to | Effect |

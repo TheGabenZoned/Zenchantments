@@ -17,6 +17,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
+import org.bukkit.event.entity.VillagerAcquireTradeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -24,6 +25,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupArrowEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.MerchantRecipe;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffectType;
@@ -344,6 +346,46 @@ public class GeneralListener implements Listener {
             () -> Zenchantment.updateEnchantmentGlowForItemStack(item, !addedEnchants.isEmpty(), worldConfiguration),
             0
         );
+    }
+
+    @EventHandler
+    public void onVillagerAcquireTrade(final @NotNull VillagerAcquireTradeEvent event) {
+        if (!(event.getEntity() instanceof Villager villager)
+            || villager.getProfession() != Villager.Profession.LIBRARIAN) {
+            return;
+        }
+
+        final WorldConfiguration worldConfiguration = WorldConfigurationProvider.getInstance()
+            .getConfigurationForWorld(event.getEntity().getWorld());
+        final List<Zenchantment> maceEnchantments = worldConfiguration.getZenchantments().stream()
+            .filter(enchantment -> enchantment.getEnchantable().contains(Tool.MACE))
+            .filter(enchantment -> enchantment.getProbability() > 0)
+            .toList();
+        if (maceEnchantments.isEmpty()) {
+            return;
+        }
+
+        final List<MerchantRecipe> recipes = new ArrayList<>(villager.getRecipes());
+        for (final Zenchantment enchantment : maceEnchantments) {
+            final boolean alreadyAdded = recipes.stream()
+                .map(MerchantRecipe::getResult)
+                .map(result -> Zenchantment.getZenchantmentsOnItemStack(result, true, worldConfiguration))
+                .anyMatch(enchants -> enchants.containsKey(enchantment));
+            if (alreadyAdded) {
+                continue;
+            }
+
+            final int level = ThreadLocalRandom.current().nextInt(1, enchantment.getMaxLevel() + 1);
+            final ItemStack result = new ItemStack(BOOK);
+            enchantment.setForItemStack(result, level, worldConfiguration);
+
+            final MerchantRecipe customTrade = new MerchantRecipe(result, 12, 5, true, 0, 0.05f);
+            customTrade.addIngredient(new ItemStack(EMERALD, 10 + level * 5));
+            customTrade.addIngredient(new ItemStack(BOOK));
+            recipes.add(customTrade);
+        }
+
+        villager.setRecipes(recipes);
     }
 
     @EventHandler
