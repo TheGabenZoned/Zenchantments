@@ -18,9 +18,13 @@ public enum Tool {
         "Shovel",
         new Material[] { WOODEN_SHOVEL, STONE_SHOVEL, GOLDEN_SHOVEL, IRON_SHOVEL, DIAMOND_SHOVEL, NETHERITE_SHOVEL, COPPER_SHOVEL }
     ),
+    MACE(
+        "Mace",
+        new Material[] { Material.MACE }
+    ),
     SWORD(
         "Sword",
-        new Material[] { WOODEN_SWORD, STONE_SWORD, GOLDEN_SWORD, IRON_SWORD, DIAMOND_SWORD, NETHERITE_SWORD, COPPER_SWORD, MACE, WOODEN_SPEAR, STONE_SPEAR, COPPER_SPEAR, GOLDEN_SPEAR, IRON_SPEAR, DIAMOND_SPEAR, NETHERITE_SPEAR }
+        new Material[] { WOODEN_SWORD, STONE_SWORD, GOLDEN_SWORD, IRON_SWORD, DIAMOND_SWORD, NETHERITE_SWORD, COPPER_SWORD, Material.MACE, WOODEN_SPEAR, STONE_SPEAR, COPPER_SPEAR, GOLDEN_SPEAR, IRON_SPEAR, DIAMOND_SPEAR, NETHERITE_SPEAR }
     ),
     SPEAR(
         "Spear",
@@ -173,7 +177,7 @@ public enum Tool {
             COPPER_BOOTS,
             Material.TRIDENT,
             Material.BRUSH,
-            MACE,
+            Material.MACE,
             Material.SHIELD,
             WOODEN_SPEAR,
             STONE_SPEAR,
