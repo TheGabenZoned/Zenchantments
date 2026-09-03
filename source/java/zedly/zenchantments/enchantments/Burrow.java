@@ -24,18 +24,8 @@ public final class Burrow extends Zenchantment {
             return false;
         }
 
-        Location destination = target.getLocation();
-        for (int blocks = 0; blocks < Math.min(3, level); blocks++) {
-            final Location below = destination.clone().subtract(0, 1, 0);
-            if (!below.getBlock().isPassable() || !below.clone().add(0, 1, 0).getBlock().isPassable()) {
-                break;
-            }
-            destination = below;
-        }
-
-        if (!destination.equals(target.getLocation())) {
-            target.teleport(destination);
-        }
+        final Location destination = target.getLocation().subtract(0, Math.min(3, level), 0);
+        target.teleport(destination);
         return true;
     }
 }
