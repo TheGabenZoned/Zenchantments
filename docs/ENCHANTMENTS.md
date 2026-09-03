@@ -12,7 +12,7 @@ Enchantments can be obtained through normal enchanting when their configured pro
 
 The command applies the enchantment to the item in the user's main hand. Names are case-insensitive; use the internal names shown in the tables below (for example, `BlazesCurse`, `GoldRush`, or `SonicShock`).
 
-The item categories in this guide are the categories accepted by the configuration file. `Spear` includes wooden, stone, copper, golden, iron, diamond, and netherite spears. `All` includes every supported tool, weapon, armor piece, and utility item.
+The item categories in this guide are the categories accepted by the configuration file. `Mace` applies to the Mace. `Spear` includes wooden, stone, copper, golden, iron, diamond, and netherite spears. `All` includes every supported tool, weapon, armor piece, and utility item.
 
 A configured probability of `0.0` disables random acquisition but does not prevent administrators from applying the enchantment manually. A probability of `-1.0` disables the enchantment completely. Maximum levels and supported categories can be changed per world in the generated world configuration file.
 
@@ -28,6 +28,7 @@ A configured probability of `0.0` disables random acquisition but does not preve
 | Blaze's Curse (`BlazesCurse`) | I | Chestplate | Prevents damage from lava and fire but causes damage in water and rain. |
 | Blizzard | III | Bow, Trident | Creates a freezing blizzard around the projectile impact point. |
 | Bounce | V | Boots | Preserves momentum while moving across slime blocks. |
+| Burrow | III | Mace | Burrows entities downward by up to three blocks when a Mace smash attack lands. |
 | Burst | V | Bow | Rapidly fires a series of arrows. |
 | Caffeine | III | Helmet | Delays phantom spawning for the wearer. |
 | Chitin | IV | Elytra | Reduces damage taken by the Elytra wearer. |
@@ -44,6 +45,7 @@ A configured probability of `0.0` disables random acquisition but does not preve
 | Gluttony | I | Helmet | Automatically consumes food for the player. |
 | Gold Rush (`GoldRush`) | III | Shovel | Has a chance to drop gold nuggets when mining sand. |
 | Grab | I | Pickaxe, Shovel, Axe | Pulls mined item and experience drops toward the player. |
+| Groundbreaker | IV | Mace | Applies Slowness and Mining Fatigue to entities hit by a Mace smash attack. |
 | Green Thumb (`GreenThumb`) | III | Leggings | Grows nearby foliage around the player. |
 | Harvest | III | Hoe | Harvests fully grown crops in an area when activated. |
 | Haste | IV | Pickaxe, Shovel, Axe | Grants a mining speed boost. |
@@ -76,6 +78,7 @@ A configured probability of `0.0` disables random acquisition but does not preve
 | Reaper | IV | Bow, Sword, Trident | Applies temporary wither and blindness to targets. |
 | Reveal | IV | Pickaxe | Reveals nearby ores through stone. |
 | Saturation | III | Leggings | Reduces hunger usage. |
+| Seismic Slam | III | Mace | Creates a circular shockwave around the target that deals reduced damage and applies high knockback. The maximum radius is 12 blocks. |
 | Short Cast (`ShortCast`) | II | Rod | Pulls fishing hooks back toward the player. |
 | Shred | V | Pickaxe, Shovel | Breaks blocks in a radius around the original block. |
 | Skewer | II | Spear | A jab continues through additional entities in a straight line. Level I hits up to 2 total entities; level II hits up to 3. |
