@@ -117,10 +117,9 @@ public final class ZenchantmentListener implements Listener {
 
     @EventHandler
     private void onBlockInteractInteractable(final @NotNull PlayerInteractEvent event) {
-        if (event.getClickedBlock() == null
-            || MaterialList.INTERACTABLE_BLOCKS.contains(event.getClickedBlock().getType())
-            && event.getHand() == HAND
-        ) {
+        if (event.getHand() == HAND
+            && event.getClickedBlock() != null
+            && MaterialList.INTERACTABLE_BLOCKS.contains(event.getClickedBlock().getType())) {
             final Player player = event.getPlayer();
             applyZenchantmentForArmorAndHeldItems(player, (ench, level, slot) -> ench.onBlockInteractInteractable(event, level, slot));
         }

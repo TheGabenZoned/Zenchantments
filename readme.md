@@ -12,15 +12,17 @@ enables fine-tuning of individual enchantments to tailor them to every server's 
 
 See [Releases](https://github.com/Zedly/Zenchantments/releases) for downloads.
 
+## Documentation
+
+See [docs/ENCHANTMENTS.md](docs/ENCHANTMENTS.md) for the complete enchantment reference, supported item categories,
+maximum levels, effects, commands, and configuration settings.
+
 ## Compile
 
-To compile the entire project yourself, you need multiple versions of CraftBukkit as Maven repositories. These are
-created automatically when you use [BuildTools](https://www.spigotmc.org/wiki/buildtools/) to obtain CB and/or Spigot.
-If you are making a private build and only need support for one server version, you can easily add and remove
-compatibility adapters by editing the parent POM and a switch in PlayerInteractUtil.
+To compile the project yourself, run `gradlew build`. The build uses the Spigot API dependency declared in
+`build.gradle`, so no CraftBukkit or server installation is required.
 
 ## Compatibility
 
-The current version of this plugin is fully compatible with CraftBukkit and Spigot versions 1.10.x, 1.11.x and 1.12.
-Other versions have partial support through Bukkit-only fallback code, but integration with protection and logging
-plugins will be limited.
+The current version targets Spigot API 26.2 and requires a Minecraft 26.2-compatible Spigot server. The plugin uses
+the Bukkit API and does not require client-side mods or resource packs.

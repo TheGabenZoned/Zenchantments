@@ -3,7 +3,7 @@ ZenchantmentsConfigVersion: 1.5.3
 # probability: (Decimal) (0 = no probability, -1 = disabled)
 #    Chance of obtaining the enchantment when enchanting
 
-# tools: (Axe, Shovel, Sword, Pickaxe, Rod, Shears, Bow, Lighter,
+# tools: (Axe, Shovel, Sword, Spear, Pickaxe, Rod, Shears, Bow, Lighter,
 #            Hoe, Helmet, Chestplate, Leggings, Boots, Elytra, All)
 #    Determines what tools can recieve the enchantment
 
@@ -47,6 +47,13 @@ enchantments:
               probability: 3.0
               tools: Axe, Shovel, Sword, Pickaxe, Hoe
               name: Blanket
+              max-level: 3
+              cooldown: 0
+              power: 1.0
+      - Brace:
+              probability: 4.0
+              tools: Spear
+              name: Brace
               max-level: 3
               cooldown: 0
               power: 1.0
@@ -211,6 +218,13 @@ enchantments:
               max-level: 1
               cooldown: 0
               power: 1.0
+      - Hook:
+              probability: 4.0
+              tools: Spear
+              name: Hook
+              max-level: 2
+              cooldown: 0
+              power: 1.0
       - IceAspect:
               probability: 6.0
               tools: Sword, Trident
@@ -274,6 +288,13 @@ enchantments:
               max-level: 1
               cooldown: 0
               power: 1.0
+      - Momentum:
+              probability: 4.0
+              tools: Spear
+              name: Momentum
+              max-level: 3
+              cooldown: 0
+              power: 1.0
       - Mow:
               probability: 4.0
               tools: Shears
@@ -306,6 +327,13 @@ enchantments:
               probability: 4.0
               tools: Hoe
               name: Persephone
+              max-level: 3
+              cooldown: 0
+              power: 1.0
+      - Phalanx:
+              probability: 4.0
+              tools: Spear
+              name: Phalanx
               max-level: 3
               cooldown: 0
               power: 1.0
@@ -391,6 +419,13 @@ enchantments:
               tools: Pickaxe, Shovel
               name: Shred
               max-level: 5
+              cooldown: 0
+              power: 1.0
+      - Skewer:
+              probability: 4.0
+              tools: Spear
+              name: Skewer
+              max-level: 2
               cooldown: 0
               power: 1.0
       - Siphon:

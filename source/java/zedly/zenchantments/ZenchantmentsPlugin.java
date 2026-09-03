@@ -37,7 +37,7 @@ public class ZenchantmentsPlugin extends JavaPlugin implements Zenchantments {
     @Override
     public void onEnable() {
         ZenchantmentsPlugin.instance = this;
-        getDataFolder().mkdir();
+        getDataFolder().mkdirs();
 
         this.i18n.updateLocale(Locale.getDefault());
         // Attempt loading default config early so we can disable the plugin if needed

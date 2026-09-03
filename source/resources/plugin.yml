@@ -1,10 +1,10 @@
 name: 'Zenchantments'
-version: '21.5.0'
+version: '26.2.0'
 description: 'Adds 70+ new enchantments to the game.'
 authors: ['Zedly','Golem_Leader']
 
 main: 'zedly.zenchantments.ZenchantmentsPlugin'
-api-version: '1.21'
+api-version: '26.2'
 
 commands:
   ench:
