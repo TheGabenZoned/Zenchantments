@@ -357,33 +357,49 @@ public class GeneralListener implements Listener {
 
         final WorldConfiguration worldConfiguration = WorldConfigurationProvider.getInstance()
             .getConfigurationForWorld(event.getEntity().getWorld());
-        final List<Zenchantment> maceEnchantments = worldConfiguration.getZenchantments().stream()
-            .filter(enchantment -> enchantment.getEnchantable().contains(Tool.MACE))
+        final List<Zenchantment> availableEnchantments = worldConfiguration.getZenchantments().stream()
             .filter(enchantment -> enchantment.getProbability() > 0)
             .toList();
-        if (maceEnchantments.isEmpty()) {
+        if (availableEnchantments.isEmpty()) {
             return;
         }
 
         final List<MerchantRecipe> recipes = new ArrayList<>(villager.getRecipes());
-        for (final Zenchantment enchantment : maceEnchantments) {
-            final boolean alreadyAdded = recipes.stream()
-                .map(MerchantRecipe::getResult)
-                .map(result -> Zenchantment.getZenchantmentsOnItemStack(result, true, worldConfiguration))
-                .anyMatch(enchants -> enchants.containsKey(enchantment));
-            if (alreadyAdded) {
-                continue;
-            }
+        // Do NOT manually add event.getRecipe() here: the server appends it
+        // automatically after this event. Adding it ourselves duplicates every
+        // vanilla trade (which is how Novice librarians ended up with 6 trades
+        // instead of 2 vanilla + 1 custom).
 
-            final int level = ThreadLocalRandom.current().nextInt(1, enchantment.getMaxLevel() + 1);
-            final ItemStack result = new ItemStack(BOOK);
-            enchantment.setForItemStack(result, level, worldConfiguration);
-
-            final MerchantRecipe customTrade = new MerchantRecipe(result, 12, 5, true, 0, 0.05f);
-            customTrade.addIngredient(new ItemStack(EMERALD, 10 + level * 5));
-            customTrade.addIngredient(new ItemStack(BOOK));
-            recipes.add(customTrade);
+        final Set<Zenchantment> existingEnchants = new HashSet<>();
+        for (final MerchantRecipe recipe : recipes) {
+            existingEnchants.addAll(
+                Zenchantment.getZenchantmentsOnItemStack(recipe.getResult(), true, worldConfiguration).keySet()
+            );
         }
+
+        // Only one custom Zenchantment trade per villager. VillagerAcquireTradeEvent
+        // fires once per vanilla trade acquired (twice when a villager first becomes
+        // a Novice librarian), so without this guard every librarian would collect
+        // multiple custom trades right away.
+        if (!existingEnchants.isEmpty()) {
+            return;
+        }
+
+        final List<Zenchantment> candidates = new ArrayList<>(availableEnchantments);
+        candidates.removeAll(existingEnchants);
+        if (candidates.isEmpty()) {
+            return;
+        }
+
+        final Zenchantment enchantment = candidates.get(ThreadLocalRandom.current().nextInt(candidates.size()));
+        final int level = ThreadLocalRandom.current().nextInt(1, enchantment.getMaxLevel() + 1);
+        final ItemStack result = new ItemStack(BOOK);
+        enchantment.setForItemStack(result, level, worldConfiguration);
+
+        final MerchantRecipe customTrade = new MerchantRecipe(result, 12, 5, true, 0, 0.05f);
+        customTrade.addIngredient(new ItemStack(EMERALD, 10 + level * 5));
+        customTrade.addIngredient(new ItemStack(BOOK));
+        recipes.add(customTrade);
 
         villager.setRecipes(recipes);
     }
