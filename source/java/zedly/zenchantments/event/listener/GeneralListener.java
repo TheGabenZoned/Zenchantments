@@ -396,7 +396,7 @@ public class GeneralListener implements Listener {
         final ItemStack result = new ItemStack(BOOK);
         enchantment.setForItemStack(result, level, worldConfiguration);
 
-        final MerchantRecipe customTrade = new MerchantRecipe(result, 12, 5, true, 0, 0.05f);
+        final MerchantRecipe customTrade = new MerchantRecipe(result, 0, 12, true, 5, 0.05f);
         customTrade.addIngredient(new ItemStack(EMERALD, 10 + level * 5));
         customTrade.addIngredient(new ItemStack(BOOK));
         recipes.add(customTrade);
